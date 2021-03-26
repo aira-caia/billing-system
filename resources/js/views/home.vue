@@ -46,7 +46,7 @@ export default {
 };
 </script>
 
-<style >
+<style scoped>
 @font-face {
   font-family: "Bergen Sans";
   src: local("Bergen Sans"),
