@@ -5,21 +5,21 @@
       <h3>Hi, Admin!</h3>
     </div>
     <ul class="navigations">
-      <li class="navItem">
+      <li class="navItem" :class="{ active: $route.name == 'home' }">
         <v-icon class="navIcon">mdi-home-roof</v-icon>
-        <span>Home</span>
+        <router-link to="/home" class="navText">Home</router-link>
       </li>
-      <li class="navItem">
+      <li class="navItem" :class="{ active: $route.name == 'menu' }">
         <v-icon class="navIcon">mdi-view-list</v-icon>
-        <span>Menu</span>
+        <router-link to="/menu" class="navText">Menu</router-link>
       </li>
-      <li class="navItem active">
+      <li class="navItem" :class="{ active: $route.name == 'settings' }">
         <v-icon class="navIcon">mdi-cog-outline</v-icon>
-        <span>Settings</span>
+        <router-link to="/settings" class="navText">Settings</router-link>
       </li>
       <li class="navItem">
         <v-icon class="navIcon">mdi-toggle-switch-off-outline</v-icon>
-        <span>Sign out</span>
+        <router-link to="/" class="navText">Sign out</router-link>
       </li>
     </ul>
   </div>
@@ -40,13 +40,13 @@ export default {};
 
 .main {
   background: #e6ebfe;
-}
-.main {
   max-width: 240px;
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: fixed;
 }
 .profile-info {
   margin: 90px 0 30px 0;
@@ -83,7 +83,6 @@ export default {};
   width: 200px;
   overflow: hidden;
   margin: 14px 0;
-  cursor: pointer;
 }
 .navItem .navIcon {
   background: #fff;
@@ -92,10 +91,12 @@ export default {};
   width: 70px;
   border-radius: 20px;
 }
-.navItem span {
+.navItem .navText {
   margin-left: 22px;
   font-size: 1rem;
   color: #9598a9;
+  text-decoration: none;
+  cursor: pointer;
 }
 .navItem .navIcon {
   color: #9598a9;
@@ -108,7 +109,7 @@ export default {};
   border-radius: 20px;
   background: #f87193;
 }
-.navItem.active span {
+.navItem.active .navText {
   color: #fff;
 }
 </style>
