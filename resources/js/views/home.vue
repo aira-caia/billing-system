@@ -2,7 +2,8 @@
   <div id="main">
     <sidebar />
     <div class="myContainer">
-      <welcome title="Welcome to Menu" :src="iconBlush" />
+      <welcome title="Welcome to Dashboard" :src="iconBlush" />
+      <img :src="manIcon" class="manIcon" alt="manIcon" />
       <img :src="welcomeIcon" class="welcomeIcon" alt="" />
       <div class="miniContainer">
         <div class="cardRow">
@@ -57,6 +58,7 @@ import iconPot from "../assets/icons/iconPot.svg";
 import iconCart from "../assets/icons/iconCart.svg";
 import iconCoins from "../assets/icons/iconCoins.svg";
 import iconCashier from "../assets/icons/iconCashier.svg";
+import manIcon from "../assets/icons/Saly-11.svg";
 
 export default {
   components: { menus, categories, Sidebar, Welcome },
@@ -67,6 +69,7 @@ export default {
     iconCart,
     iconCoins,
     iconCashier,
+    manIcon,
   }),
 };
 </script>
@@ -82,6 +85,12 @@ export default {
   top: -50px;
   right: 0;
   width: 204px;
+}
+.manIcon {
+  position: absolute;
+  bottom: -200px;
+  right: -120px;
+  width: 320px;
 }
 .cardRow {
   display: flex;

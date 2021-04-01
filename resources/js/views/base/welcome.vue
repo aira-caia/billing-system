@@ -13,6 +13,7 @@ export default {
 <style scoped>
 h1 {
   font-size: 2rem;
+    font-weight: bold;
 }
 .main {
   width: 220px;
@@ -22,6 +23,6 @@ h1 {
 img {
   position: relative;
   max-height: 48px;
-  bottom: -10px;
+  bottom: 0;
 }
 </style>

@@ -5,7 +5,7 @@
       <h3>Hi, Admin!</h3>
     </div>
     <ul class="navigations">
-      <li class="navItem" :class="{ active: $route.name == 'home' }">
+      <li class="navItem" :class="{ active: $route.name === 'home' }">
         <v-icon class="navIcon">mdi-home-roof</v-icon>
         <router-link to="/home" class="navText">Home</router-link>
       </li>
@@ -13,20 +13,31 @@
         <v-icon class="navIcon">mdi-view-list</v-icon>
         <router-link to="/menu" class="navText">Menu</router-link>
       </li>
-      <li class="navItem" :class="{ active: $route.name == 'settings' }">
+<!--      <li class="navItem" :class="{ active: $route.name === 'settings' }">
         <v-icon class="navIcon">mdi-cog-outline</v-icon>
         <router-link to="/settings" class="navText">Settings</router-link>
-      </li>
+      </li>-->
       <li class="navItem">
         <v-icon class="navIcon">mdi-toggle-switch-off-outline</v-icon>
-        <router-link to="/" class="navText">Sign out</router-link>
+        <button @click="logout" class="navText">Sign out</button>
       </li>
     </ul>
   </div>
 </template>
 
 <script>
-export default {};
+import axios from "axios";
+import token from "../../dev/token";
+export default {
+  methods: {
+    logout() {
+      axios.post("/api/logout",{},token()).then((r) => {
+          localStorage.removeItem("token");
+          this.$router.push({ name: "login" })
+      });
+    },
+  },
+};
 </script>
 
 <style scoped>

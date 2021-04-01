@@ -11,7 +11,6 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ mix('js/app.js') }}" defer></script>
 
     <!-- Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
@@ -26,6 +25,8 @@
     <div id="app">
         <app></app>
     </div>
+    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
 </html>
