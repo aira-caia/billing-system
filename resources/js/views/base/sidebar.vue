@@ -2,7 +2,7 @@
   <div class="main">
     <div class="profile-info">
       <div class="profileImg"></div>
-      <h3>Hi, Admin!</h3>
+      <h3 class="font-weight-bold">Hi, Admin!</h3>
     </div>
     <ul class="navigations">
       <li class="navItem" :class="{ active: $route.name === 'home' }">
