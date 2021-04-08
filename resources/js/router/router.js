@@ -4,6 +4,7 @@ import Login from "../views/login.vue"
 import Settings from "../views/settings.vue"
 import Menu from "../views/menu.vue"
 import home from "../views/home.vue"
+import profile from "../views/profile.vue"
 import middlewares from "../middlewares/index"
 
 Vue.use(VueRouter)
@@ -17,14 +18,14 @@ const routes = [
             middlewares: [middlewares.guest]
         }
     },
-   /* {
-        path: '/settings',
-        component: Settings,
-        name: "settings",
-        meta: {
-            middlewares: [middlewares.auth]
-        }
-    },*/
+    /* {
+         path: '/settings',
+         component: Settings,
+         name: "settings",
+         meta: {
+             middlewares: [middlewares.auth]
+         }
+     },*/
     {
         path: '/menu',
         component: Settings,
@@ -41,7 +42,14 @@ const routes = [
             middlewares: [middlewares.auth]
         }
     },
-
+    {
+        path: '/profile',
+        component: profile,
+        name: "profile",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
 ]
 
 function nextCheck(context, middlewares, index) {

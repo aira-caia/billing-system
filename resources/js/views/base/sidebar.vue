@@ -13,7 +13,15 @@
         <v-icon class="navIcon">mdi-view-list</v-icon>
         <router-link to="/menu" class="navText">Menu</router-link>
       </li>
-<!--      <li class="navItem" :class="{ active: $route.name === 'settings' }">
+      <li
+        class="navItem"
+        :class="{ active: $route.name == 'profile' }"
+        disabled
+      >
+        <v-icon class="navIcon">mdi-cog-outline</v-icon>
+        <router-link to="/profile" class="navText">Edit Profile</router-link>
+      </li>
+      <!--      <li class="navItem" :class="{ active: $route.name === 'settings' }">
         <v-icon class="navIcon">mdi-cog-outline</v-icon>
         <router-link to="/settings" class="navText">Settings</router-link>
       </li>-->
@@ -31,9 +39,9 @@ import token from "../../dev/token";
 export default {
   methods: {
     logout() {
-      axios.post("/api/logout",{},token()).then((r) => {
-          localStorage.removeItem("token");
-          this.$router.push({ name: "login" })
+      axios.post("/api/logout", {}, token()).then((r) => {
+        localStorage.removeItem("token");
+        this.$router.push({ name: "login" });
       });
     },
   },
