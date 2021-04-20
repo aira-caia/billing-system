@@ -2276,6 +2276,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2297,19 +2308,19 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       Swal.fire({
-        title: 'Are you sure?',
+        title: "Are you sure?",
         text: "You won't be able to revert this!",
-        icon: 'warning',
+        icon: "warning",
         showCancelButton: true,
-        confirmButtonColor: '#3085d6',
-        cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
       }).then(function (result) {
         if (result.isConfirmed) {
           axios__WEBPACK_IMPORTED_MODULE_0___default().delete("/api/menu/".concat(menu_id), (0,_dev_token__WEBPACK_IMPORTED_MODULE_1__.default)()).then(function (r) {
             _this.reloadMenus();
 
-            Swal.fire('Deleted!', 'Menu has been deleted successfully', 'success');
+            Swal.fire("Deleted!", "Menu has been deleted successfully", "success");
           });
         }
       });
@@ -11720,7 +11731,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.myCard[data-v-2a43ad16] {\n    border: 1px solid #a5a5a5;\n    width: 100%;\n    max-width: 270px;\n    padding: 120px 30px 30px 30px;\n    position: relative;\n    border-radius: 45px;\n}\n.myCards[data-v-2a43ad16] {\n    display: flex;\n    justify-content: space-between;\n    margin-bottom: 80px;\n}\n.myCard[data-v-2a43ad16]:hover {\n    background: #efefef;\n}\n.myCard p[data-v-2a43ad16] {\n    font-size: 12px;\n    margin-top: 7px;\n    font-weight: bold;\n    margin-bottom: 55px;\n    word-wrap: break-word;\n    width: 100%;\n}\n.myCard h3[data-v-2a43ad16] {\n    font-size: 1.2rem;\n}\n.myCard span[data-v-2a43ad16] {\n    font-weight: bold;\n    font-size: 1.4rem;\n    position: absolute;\n    bottom: 30px;\n}\n.myCard img[data-v-2a43ad16] {\n    border-radius: 50%;\n    height: 132px;\n    width: 132px;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n    -o-object-fit: cover;\n       object-fit: cover;\n    background-size: cover;\n    background: gray;\n    position: absolute;\n    top: 0;\n    transform: translate(-50%, -40%);\n    left: 50%;\n    cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16] {\n    border-radius: 55%;\n    background: #30334f;\n    position: absolute;\n    bottom: 20px;\n    right: 20px;\n    width: 50px;\n    height: 50px;\n    cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16]:hover {\n    background: red;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.myCard[data-v-2a43ad16] {\n  border: 1px solid #a5a5a5;\n  width: 100%;\n  max-width: 270px;\n  padding: 120px 30px 30px 30px;\n  position: relative;\n  border-radius: 45px;\n}\n.myCards[data-v-2a43ad16] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 80px;\n}\n.myCard[data-v-2a43ad16]:hover {\n  background: #efefef;\n}\n.myCard p[data-v-2a43ad16] {\n  font-size: 12px;\n  margin-top: 7px;\n  font-weight: bold;\n  margin-bottom: 55px;\n  word-wrap: break-word;\n  width: 100%;\n}\n.myCard h3[data-v-2a43ad16] {\n  font-size: 1.2rem;\n}\n.myCard span[data-v-2a43ad16] {\n  font-weight: bold;\n  font-size: 1.4rem;\n  position: absolute;\n  bottom: 30px;\n}\n.myCard img[data-v-2a43ad16] {\n  border-radius: 50%;\n  height: 132px;\n  width: 132px;\n  background-position: 50% 50%;\n  background-repeat: no-repeat;\n  -o-object-fit: cover;\n     object-fit: cover;\n  background-size: cover;\n  background: gray;\n  position: absolute;\n  top: 0;\n  transform: translate(-50%, -40%);\n  left: 50%;\n  cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16] {\n  border-radius: 55%;\n  background: #30334f;\n  position: absolute;\n  bottom: 20px;\n  right: 20px;\n  width: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16]:hover {\n  background: red;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -28800,23 +28811,14 @@ var render = function() {
             "div",
             { staticClass: "myCard", class: { "mx-12": menu.length === 2 } },
             [
-              _c("img", {
-                attrs: {
-                  src: "/storage/images/" + item.image_path,
-                  alt: "food_image"
-                }
-              }),
+              _c("img", { attrs: { src: item.image_path, alt: "food_image" } }),
               _vm._v(" "),
               _c("h3", { staticClass: "font-weight-bold" }, [
                 _vm._v(_vm._s(item.title))
               ]),
               _vm._v(" "),
               _c("p", [
-                _vm._v(
-                  "\n                " +
-                    _vm._s(item.ingredients) +
-                    "\n            "
-                )
+                _vm._v("\n        " + _vm._s(item.ingredients) + "\n      ")
               ]),
               _vm._v(" "),
               _c("span", [_vm._v("P" + _vm._s(item.price))]),

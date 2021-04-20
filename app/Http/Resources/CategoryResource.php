@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
-class MenuResource extends JsonResource
+class CategoryResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,12 +16,10 @@ class MenuResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'title' => $this->title,
-            'id' => $this->id,
-            'category_id' => $this->category_id,
-            'ingredients' => $this->ingredients,
-            'image_path' => env("APP_URL") . Storage::url("images/" . $this->image_path),
-            'price' => $this->price,
+            "id" => $this->id,
+            "title" => $this->title,
+            "icon" => env("APP_URL") . Storage::url("images/" . $this->image_path),
+            "menus" => $this->menus
         ];
     }
 }
