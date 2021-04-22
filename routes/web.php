@@ -17,4 +17,4 @@ use Illuminate\Support\Facades\Route;
 //     echo base64_encode('pk-09687733837:');
 // });
 
-Route::view('/{any?}', 'index')->where('any', '.*');
+// Route::view('/{any?}', 'index')->where('any', '.*');
