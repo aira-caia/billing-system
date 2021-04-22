@@ -13,8 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 // 09687733837
-Route::get('/test', function () {
-    echo base64_encode('pk-09687733837:');
-});
+// Route::get('/test', function () {
+//     echo base64_encode('pk-09687733837:');
+// });
 
 Route::view('/{any?}', 'index')->where('any', '.*');
