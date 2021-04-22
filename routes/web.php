@@ -1,7 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,11 +12,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-
-Route::group(['prefix' => "api",'middleware' => ['auth']], static function (){
-
+// 09687733837
+Route::get('/test', function () {
+    echo base64_encode('pk-09687733837:');
 });
-
 
 Route::view('/{any?}', 'index')->where('any', '.*');
