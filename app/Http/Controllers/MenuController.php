@@ -17,11 +17,11 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
-        if(!$request->get('query') || $request->get('query') === "All"){
+        if (!$request->get('query') || $request->get('query') === "All") {
             return response(['data' => MenuResource::collection(Menu::all())]);
         }
 
-        return response(['data' => MenuResource::collection(Menu::where('category_id',$request->get('query'))->get())]);
+        return response(['data' => MenuResource::collection(Menu::where('category_id', $request->get('query'))->get())]);
     }
 
     /**
@@ -35,14 +35,17 @@ class MenuController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+            'image_real' => 'required|image|mimes:jpeg,png,jpg,gif',
             'ingredients' => 'nullable|string',
             'category_id' => 'required|numeric|exists:categories,id'
         ]);
 
         $image = $request->file('image');
+        $image_real = $request->file('image_real');
         $imageName = time() . "." . $image->getClientOriginalExtension();
         $image->storeAs("/public/images", $imageName);
+        $image_real->storeAs("/public/images/menu", $imageName);
         $validated['image_path'] = $imageName;
         Menu::create($validated);
 
@@ -70,7 +73,8 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
-        Storage::disk('public')->delete("images/".$menu->image_path);
+        Storage::disk('public')->delete("images/" . $menu->image_path);
+        Storage::disk('public')->delete("images/menu/" . $menu->image_path);
         $menu->delete();
         return response([
             'message' => "OK"

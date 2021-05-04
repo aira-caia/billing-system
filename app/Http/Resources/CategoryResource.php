@@ -16,10 +16,10 @@ class CategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            "id" => $this->id,
+            "value" => $this->id,
             "title" => $this->title,
-            "icon" => env("APP_URL") . Storage::url("images/" . $this->image_path),
-            "menus" => $this->menus
+            "icon" => env("APP_URL") . Storage::url("images/categories/" . $this->image_path),
+            "active" => false
         ];
     }
 }

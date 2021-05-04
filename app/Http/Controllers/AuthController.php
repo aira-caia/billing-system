@@ -38,4 +38,25 @@ class AuthController extends Controller
         auth()->user()->tokens()->delete();
         return response(['message' => "OK"]);
     }
+
+    public function index(Request $request)
+    {
+        return $request->user();
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'username' => 'required|string',
+            'password' => 'nullable|string|confirmed'
+        ]);
+        if(!$validated['password']) {
+            unset($validated['password']);
+        }else {
+            $validated['password'] = Hash::make($validated['password']);
+        }
+
+        $user->update($validated);
+        return response(['message' => "OK"]);
+    }
 }

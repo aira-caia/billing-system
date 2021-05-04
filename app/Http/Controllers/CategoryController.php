@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CategoryController extends Controller
 {
@@ -36,7 +37,20 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'title' => 'required|string|unique:categories',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
+        ]);
+
+        $image = $request->file('image');
+        $imageName = time() . "." . $image->getClientOriginalExtension();
+        $image->storeAs("/public/images/categories", $imageName);
+        $validated['image_path'] = $imageName;
+        Category::create($validated);
+
+        return response([
+            'message' => "OK"
+        ]);
     }
 
     /**
@@ -81,6 +95,15 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        if ($category->menus->count() > 0) {
+            return response([
+                'message' => "Category has an existing menu."
+            ], 400);
+        }
+        Storage::disk('public')->delete("images/categories/" . $category->image_path);
+        $category->delete();
+        return response([
+            'message' => "OK"
+        ]);
     }
 }

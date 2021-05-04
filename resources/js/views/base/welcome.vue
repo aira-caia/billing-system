@@ -14,6 +14,7 @@ export default {
 h1 {
   font-size: 2rem;
     font-weight: bold;
+    font-family: "Bergen Sans";
 }
 .main {
   width: 220px;

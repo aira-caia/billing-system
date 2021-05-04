@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +17,12 @@ use Illuminate\Support\Facades\Route;
 //     echo base64_encode('pk-09687733837:');
 // });
 
-Route::get('/artisan/storage', function () {
-    $command = 'storage:link';
-    Artisan::call($command);
-    return Artisan::output();
-});
+// Route::get('/artisan/storage', function () {
+//     $command = 'storage:link';
+//     Artisan::call($command);
+//     return Artisan::output();
+// });
+
+Route::view("/success","success");
 
 Route::view('/{any?}', 'index')->where('any', '.*');
