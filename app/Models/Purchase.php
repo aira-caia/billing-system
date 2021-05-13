@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Purchase extends Model
 {
     use HasFactory;
-    protected $fillable = ["menu_id","count","amount"];
+    protected $fillable = ["menu_id", "count", "amount"];
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
 }

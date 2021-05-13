@@ -6,7 +6,8 @@ import Menu from "../views/menu.vue"
 import home from "../views/home.vue"
 import profile from "../views/profile.vue"
 import middlewares from "../middlewares/index"
-
+import AndroidLogin from "../views/android/AndroidLogin";
+import NotFound from "../views/404.vue";
 Vue.use(VueRouter)
 
 const routes = [
@@ -14,6 +15,15 @@ const routes = [
         path: '/',
         component: Login,
         name: "login",
+        meta: {
+            middlewares: [middlewares.guest]
+        }
+    },
+    { path: "*", component: NotFound },
+    {
+        path: '/android/login',
+        component: AndroidLogin,
+        name: "androidLogin",
         meta: {
             middlewares: [middlewares.guest]
         }

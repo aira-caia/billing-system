@@ -5,22 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        $validated = $request->validate([
-            'username' => ['required','string','exists:users'],
+
+        $validator = Validator::make($request->all(), [
+            'username' => ['required', 'string',],
             'password' => ['required', 'string']
         ]);
 
-        $user = User::where('username',$validated['username'])->first();
-        if(!Hash::check($validated['password'],$user->password)){
+        $validated = $validator->validated();
+        if ($validator->fails()) {
+            return response(['message' => 'Error', 'errors' => $validator->errors()], 400);
+        }
+
+        $user = User::where('username', $validated['username'])->first();
+        if (!$user || !Hash::check($validated['password'], $user->password)) {
             return response()->json([
-                'message' =>'These credentials does not match our records.',
+                'message' => 'These credentials does not match our records.',
                 'errors' => []
-            ],400);
+            ], 400);
         }
         $token = $user->createToken('appToken')->plainTextToken;
 
@@ -32,7 +39,6 @@ class AuthController extends Controller
 
         return response()->json($response);
     }
-
     public function logout()
     {
         auth()->user()->tokens()->delete();
@@ -50,9 +56,9 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'nullable|string|confirmed'
         ]);
-        if(!$validated['password']) {
+        if (!$validated['password']) {
             unset($validated['password']);
-        }else {
+        } else {
             $validated['password'] = Hash::make($validated['password']);
         }
 

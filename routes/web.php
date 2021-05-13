@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,6 +24,7 @@ use Illuminate\Support\Facades\Route;
 //     return Artisan::output();
 // });
 
-Route::view("/success","success");
-
+Route::view("/success", "success");
+Route::view("/failed", "failed");
+Route::view("/cancel", "cancel");
 Route::view('/{any?}', 'index')->where('any', '.*');

@@ -17,11 +17,18 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        $menu = Menu::class;
+
+        $menu = $menu::where("title", "like", "%{$request->get("s")}%");
+
         if (!$request->get('query') || $request->get('query') === "All") {
-            return response(['data' => MenuResource::collection(Menu::all())]);
+            $menu = $menu->get();
+        } else {
+            $menu = $menu->where('category_id', $request->get('query'))->get();
         }
 
-        return response(['data' => MenuResource::collection(Menu::where('category_id', $request->get('query'))->get())]);
+
+        return response(['data' => MenuResource::collection($menu)]);
     }
 
     /**
