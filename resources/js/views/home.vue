@@ -12,7 +12,7 @@
             <img :src="iconPot" class="iconPot" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
-              <span>200</span>
+              <span>{{ payload["serve"] }}</span>
             </div>
           </div>
           <div class="myCardSmall">
@@ -20,7 +20,7 @@
             <img :src="iconCart" class="iconPot" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
-              <span>200</span>
+              <span>{{ payload["serve"] }}</span>
             </div>
           </div>
         </div>
@@ -30,7 +30,7 @@
             <img :src="iconCoins" class="iconMed" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
-              <span>200</span>
+              <span>{{ payload["revenue"] }}</span>
             </div>
           </div>
           <div class="myCardMedium">
@@ -38,7 +38,7 @@
             <img :src="iconCashier" class="iconMed" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
-              <span>200</span>
+              <span>{{ payload["transactions"] }}</span>
             </div>
           </div>
         </div>
@@ -59,6 +59,8 @@ import iconCart from "../assets/icons/iconCart.svg";
 import iconCoins from "../assets/icons/iconCoins.svg";
 import iconCashier from "../assets/icons/iconCashier.svg";
 import manIcon from "../assets/icons/Saly-11.svg";
+import axios from "axios";
+import token from "../dev/token";
 
 export default {
   components: { menus, categories, Sidebar, Welcome },
@@ -70,7 +72,13 @@ export default {
     iconCoins,
     iconCashier,
     manIcon,
+    payload: {},
   }),
+  created() {
+    axios.get("/api/home", token()).then((r) => {
+      this.payload = r.data;
+    });
+  },
 };
 </script>
 

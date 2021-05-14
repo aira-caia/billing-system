@@ -29,4 +29,5 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::resource('user', AuthController::class)->only('index', 'update');
     Route::get("orders", [PaymentController::class, "orders"]);
+    Route::get("home", [\App\Http\Controllers\AuthController::class, "home"]);
 });

@@ -41,7 +41,7 @@ class PaymentController extends Controller
         $receiptNumbers = Payment::where("order_code", $orderCode)->pluck("receipt_number");
         $refNumber = $payment->references->first()->reference_number;
         $total = number_format(Payment::where("order_code", $orderCode)->sum("amount"), 2);
-        $distribution = $payment->amount;
+        $distribution = number_format($payment->amount, 2);
         return response()->json(compact(
             "paymentType",
             "orderCode",

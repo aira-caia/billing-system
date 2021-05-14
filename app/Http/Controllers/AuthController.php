@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Payment;
+use App\Models\Purchase;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -9,6 +11,16 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
+
+    public function home()
+    {
+        $serve = Purchase::sum("count");
+        $revenue = number_format(Purchase::sum("amount"), 2);
+        $transactions = Payment::count();
+
+        return response()->json(compact('serve', 'revenue', 'transactions'));
+    }
+
     public function login(Request $request)
     {
 
@@ -29,6 +41,7 @@ class AuthController extends Controller
                 'errors' => []
             ], 400);
         }
+
         $token = $user->createToken('appToken')->plainTextToken;
 
         $response = [

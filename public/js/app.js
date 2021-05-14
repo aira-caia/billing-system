@@ -2661,6 +2661,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_icons_iconCoins_svg__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../assets/icons/iconCoins.svg */ "./resources/js/assets/icons/iconCoins.svg");
 /* harmony import */ var _assets_icons_iconCashier_svg__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../assets/icons/iconCashier.svg */ "./resources/js/assets/icons/iconCashier.svg");
 /* harmony import */ var _assets_icons_Saly_11_svg__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../assets/icons/Saly-11.svg */ "./resources/js/assets/icons/Saly-11.svg");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
+/* harmony import */ var _dev_token__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../dev/token */ "./resources/js/dev/token.js");
 //
 //
 //
@@ -2710,6 +2713,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
+
 
 
 
@@ -2736,8 +2741,16 @@ __webpack_require__.r(__webpack_exports__);
       iconCart: _assets_icons_iconCart_svg__WEBPACK_IMPORTED_MODULE_7__.default,
       iconCoins: _assets_icons_iconCoins_svg__WEBPACK_IMPORTED_MODULE_8__.default,
       iconCashier: _assets_icons_iconCashier_svg__WEBPACK_IMPORTED_MODULE_9__.default,
-      manIcon: _assets_icons_Saly_11_svg__WEBPACK_IMPORTED_MODULE_10__.default
+      manIcon: _assets_icons_Saly_11_svg__WEBPACK_IMPORTED_MODULE_10__.default,
+      payload: {}
     };
+  },
+  created: function created() {
+    var _this = this;
+
+    axios__WEBPACK_IMPORTED_MODULE_11___default().get("/api/home", (0,_dev_token__WEBPACK_IMPORTED_MODULE_12__.default)()).then(function (r) {
+      _this.payload = r.data;
+    });
   }
 });
 
@@ -12185,7 +12198,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-6b822e44] {\r\n  font-family: \"Bergen Sans\", sans-serif;\r\n  color: #353853;\n}\n.welcomeIcon[data-v-6b822e44] {\r\n  position: absolute;\r\n  top: -50px;\r\n  right: 0;\r\n  width: 204px;\n}\n.manIcon[data-v-6b822e44] {\r\n  position: absolute;\r\n  bottom: -200px;\r\n  right: -120px;\r\n  width: 320px;\n}\n.cardRow[data-v-6b822e44] {\r\n  display: flex;\r\n  margin: 25px 0;\n}\n.myCardSmall[data-v-6b822e44] {\r\n  background: #fff;\r\n  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);\r\n  border-radius: 20px;\r\n  height: 135px;\r\n  width: 357px;\r\n  position: relative;\r\n  padding: 25px 35px;\r\n  margin-right: 40px;\n}\n.myCardMedium[data-v-6b822e44] {\r\n  background: #fff;\r\n  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);\r\n  border-radius: 20px;\r\n  height: 290px;\r\n  width: 357px;\r\n  position: relative;\r\n  padding: 25px 35px;\r\n  margin-right: 40px;\n}\n.myCardMedium .iconMed[data-v-6b822e44] {\r\n  position: absolute;\r\n  bottom: 10px;\r\n  right: 30px;\n}\n.myCardSmall .iconPot[data-v-6b822e44] {\r\n  width: 92px;\r\n  position: absolute;\r\n  right: 30px;\r\n  top: 15px;\n}\n.total[data-v-6b822e44] {\r\n  margin-top: 15px;\n}\n.total strong[data-v-6b822e44] {\r\n  color: #9598a9;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n*[data-v-6b822e44] {\n  font-family: \"Bergen Sans\", sans-serif;\n  color: #353853;\n}\n.welcomeIcon[data-v-6b822e44] {\n  position: absolute;\n  top: -50px;\n  right: 0;\n  width: 204px;\n}\n.manIcon[data-v-6b822e44] {\n  position: absolute;\n  bottom: -200px;\n  right: -120px;\n  width: 320px;\n}\n.cardRow[data-v-6b822e44] {\n  display: flex;\n  margin: 25px 0;\n}\n.myCardSmall[data-v-6b822e44] {\n  background: #fff;\n  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);\n  border-radius: 20px;\n  height: 135px;\n  width: 357px;\n  position: relative;\n  padding: 25px 35px;\n  margin-right: 40px;\n}\n.myCardMedium[data-v-6b822e44] {\n  background: #fff;\n  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);\n  border-radius: 20px;\n  height: 290px;\n  width: 357px;\n  position: relative;\n  padding: 25px 35px;\n  margin-right: 40px;\n}\n.myCardMedium .iconMed[data-v-6b822e44] {\n  position: absolute;\n  bottom: 10px;\n  right: 30px;\n}\n.myCardSmall .iconPot[data-v-6b822e44] {\n  width: 92px;\n  position: absolute;\n  right: 30px;\n  top: 15px;\n}\n.total[data-v-6b822e44] {\n  margin-top: 15px;\n}\n.total strong[data-v-6b822e44] {\n  color: #9598a9;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -29900,7 +29913,13 @@ var render = function() {
                   attrs: { src: _vm.iconPot, alt: "icon_pot" }
                 }),
                 _vm._v(" "),
-                _vm._m(0)
+                _c("div", { staticClass: "total" }, [
+                  _c("strong", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(_vm.payload["serve"]))])
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "myCardSmall" }, [
@@ -29911,7 +29930,13 @@ var render = function() {
                   attrs: { src: _vm.iconCart, alt: "icon_pot" }
                 }),
                 _vm._v(" "),
-                _vm._m(1)
+                _c("div", { staticClass: "total" }, [
+                  _c("strong", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(_vm.payload["serve"]))])
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -29924,7 +29949,13 @@ var render = function() {
                   attrs: { src: _vm.iconCoins, alt: "icon_pot" }
                 }),
                 _vm._v(" "),
-                _vm._m(2)
+                _c("div", { staticClass: "total" }, [
+                  _c("strong", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(_vm.payload["revenue"]))])
+                ])
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "myCardMedium" }, [
@@ -29935,7 +29966,13 @@ var render = function() {
                   attrs: { src: _vm.iconCashier, alt: "icon_pot" }
                 }),
                 _vm._v(" "),
-                _vm._m(3)
+                _c("div", { staticClass: "total" }, [
+                  _c("strong", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("br"),
+                  _vm._v(" "),
+                  _c("span", [_vm._v(_vm._s(_vm.payload["transactions"]))])
+                ])
               ])
             ])
           ])
@@ -29946,56 +29983,7 @@ var render = function() {
     1
   )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "total" }, [
-      _c("strong", [_vm._v("Total")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", [_vm._v("200")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "total" }, [
-      _c("strong", [_vm._v("Total")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", [_vm._v("200")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "total" }, [
-      _c("strong", [_vm._v("Total")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", [_vm._v("200")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "total" }, [
-      _c("strong", [_vm._v("Total")]),
-      _vm._v(" "),
-      _c("br"),
-      _vm._v(" "),
-      _c("span", [_vm._v("200")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
