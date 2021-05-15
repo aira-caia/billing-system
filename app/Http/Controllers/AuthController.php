@@ -14,6 +14,7 @@ class AuthController extends Controller
 
     public function home()
     {
+        // This is to display the data on home components of admin (Web)
         $serve = Purchase::sum("count");
         $revenue = number_format(Purchase::sum("amount"), 2);
         $transactions = Payment::count();
@@ -23,7 +24,7 @@ class AuthController extends Controller
 
     public function login(Request $request)
     {
-
+        // This function is called whenever we make an attempt to login on the application
         $validator = Validator::make($request->all(), [
             'username' => ['required', 'string',],
             'password' => ['required', 'string']
@@ -42,6 +43,11 @@ class AuthController extends Controller
             ], 400);
         }
 
+        //Everytime we login successfully,we are generating a token, this token
+        //is then used both by mobile and web app to request further data to our database(backend).
+
+        //if a user does not have a token, he will be classified as unauthorized user, because he doesnt
+        //carry a token, and will not be able to request from our API.
         $token = $user->createToken('appToken')->plainTextToken;
 
         $response = [
@@ -49,22 +55,25 @@ class AuthController extends Controller
             'token' => $token
         ];
 
-
+        //If user is successfully logged in, we will send the token, including the authenticated user info.
         return response()->json($response);
     }
     public function logout()
     {
+        //Everytime we logout on our app, we are destroying our tokens.
         auth()->user()->tokens()->delete();
         return response(['message' => "OK"]);
     }
 
     public function index(Request $request)
     {
+        //This method will return the information of authenticated(logged in) user
         return $request->user();
     }
 
     public function update(Request $request, User $user)
     {
+        //We call this method when we update our user
         $validated = $request->validate([
             'username' => 'required|string',
             'password' => 'nullable|string|confirmed'

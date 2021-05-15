@@ -30,7 +30,10 @@
             <img :src="iconCoins" class="iconMed" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
-              <span>{{ payload["revenue"] }}</span>
+              <span
+                ><v-icon>mdi-currency-php</v-icon>
+                {{ payload["revenue"] }}</span
+              >
             </div>
           </div>
           <div class="myCardMedium">

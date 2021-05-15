@@ -1,15 +1,15 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/login.vue"
-import Settings from "../views/settings.vue"
-import Menu from "../views/menu.vue"
+import Menu from "../views/settings.vue"
 import home from "../views/home.vue"
 import profile from "../views/profile.vue"
+import Transaction from "../views/Transaction.vue"
 import middlewares from "../middlewares/index"
-import AndroidLogin from "../views/android/AndroidLogin";
 import NotFound from "../views/404.vue";
 Vue.use(VueRouter)
 
+// Based on what is typed, in our search/url bar, we are redirected on that page
 const routes = [
     {
         path: '/',
@@ -21,24 +21,8 @@ const routes = [
     },
     { path: "*", component: NotFound },
     {
-        path: '/android/login',
-        component: AndroidLogin,
-        name: "androidLogin",
-        meta: {
-            middlewares: [middlewares.guest]
-        }
-    },
-    /* {
-         path: '/settings',
-         component: Settings,
-         name: "settings",
-         meta: {
-             middlewares: [middlewares.auth]
-         }
-     },*/
-    {
         path: '/menu',
-        component: Settings,
+        component: Menu,
         name: "menu",
         meta: {
             middlewares: [middlewares.auth]
@@ -56,6 +40,14 @@ const routes = [
         path: '/profile',
         component: profile,
         name: "profile",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/transaction',
+        component: Transaction,
+        name: "transaction",
         meta: {
             middlewares: [middlewares.auth]
         }

@@ -1,5 +1,6 @@
 <?php
-
+//This is a model of our application
+//It represents the Table on our database
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

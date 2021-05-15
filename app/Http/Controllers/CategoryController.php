@@ -37,11 +37,12 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        // This method is called, when we add a new category on the system (web)
         $validated = $request->validate([
             'title' => 'required|string|unique:categories',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
-
+        //Store the image
         $image = $request->file('image');
         $imageName = time() . "." . $image->getClientOriginalExtension();
         $image->storeAs("/public/images/categories", $imageName);
@@ -95,11 +96,13 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        // Method is called when we delete the category
         if ($category->menus->count() > 0) {
             return response([
                 'message' => "Category has an existing menu."
             ], 400);
         }
+        // delete the image of that category
         Storage::disk('public')->delete("images/categories/" . $category->image_path);
         $category->delete();
         return response([

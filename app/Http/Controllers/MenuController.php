@@ -17,8 +17,10 @@ class MenuController extends Controller
      */
     public function index(Request $request)
     {
+        // This method is called, when we fetch our menus both in web and mobile app
         $menu = Menu::class;
 
+        // When we use search on mobile app this variable handles the query
         $menu = $menu::where("title", "like", "%{$request->get("s")}%");
 
         if (!$request->get('query') || $request->get('query') === "All") {
@@ -39,6 +41,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        //This method is called , when we store a menu on our web application.
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
@@ -80,10 +83,15 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        //This method is called , when we delete a menu
+
+        //If the selected menu has an existing record of purchases, we will not be able to delete that,
+        //because of foreign key constraints on our database
         if ($menu->purchases->count() > 0) {
             return response(["message" => "This menu has an existing records of purchases."], 400);
         }
 
+        //Delete the image of selected menu
         Storage::disk('public')->delete("images/" . $menu->image_path);
         Storage::disk('public')->delete("images/menu/" . $menu->image_path);
         $menu->delete();

@@ -1,5 +1,6 @@
 <?php
-
+// This class is provided by laravel also, we only touch this file, if we need to configure something
+//related to this.
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;

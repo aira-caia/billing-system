@@ -5,6 +5,9 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
+// This class is called resource, it formats our Model that we need to send to our client,
+//or system
+// Format for retrieving menus, they are sent in an array format too.
 class MenuResource extends JsonResource
 {
     /**

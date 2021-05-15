@@ -15,19 +15,31 @@ class PaymentController extends Controller
 
     public function orders()
     {
+        // This method will return the details of our transactions group by order code.
         $payments = PaymentResource::collection(Payment::orderBy("is_served")->groupBy("order_code")->get());
+        return $payments;
+    }
+
+    public function payments()
+    {
+        // This method will also return the details of our all transactions.
+        $payments = PaymentResource::collection(Payment::all());
         return $payments;
     }
 
 
     public function update(Payment $payment)
     {
+        //This method is called , when we toggle the served/not serve button on queueing module of mobile app
         Payment::where("order_code", $payment->order_code)->update(["is_served" => !$payment->is_served]);
         return response(["message" => "OK"]);
     }
 
     public function show(Request $request, $orderCode)
     {
+        //This method will show a specific transaction details base on order code provided.
+
+        //The request is only possible if it carries a bearer token, equal to this data below.
         if (
             !$request->bearerToken() ||
             !Hash::check('P@$$worD123', $request->bearerToken())
@@ -59,42 +71,18 @@ class PaymentController extends Controller
         ));
     }
 
-    // http://127.0.0.1:8000/payment?status=success&key=$2y$10$tmoxPjspNPUZvXDUsMg.huWw4RGsaA.aiivrKs1kOhafxaMubAAZ.&reference_id=1234567&type=full&amount=1
-    public function index(Request $request)
-    {
-        $validated = $request->validate([
-            "status" => "required|in:success,failed",
-            "key" => "required|string|min:10",
-            "reference_id" => "required|string|min:5",
-            "type" => "required|in:full,split",
-            "split_count" => "nullable|numeric|min:0",
-            "amount" => "required|numeric|min:1",
-            "items" => "required|numeric|min:1",
-        ]);
-
-        if (!Hash::check('P@$$worD123', $request->key)) abort(404);
-
-        if ($request->status === "success") {
-            if ($request->type === "full") {
-                $payment = Payment::where("reference_id", $request->reference_id)->get();
-                if ($payment->count() > 0) {
-                    return view("success");
-                } else {
-                    Payment::create($validated);
-                    return view("success");
-                }
-            }
-        }
-    }
-
     public function store(Request $request)
     {
+        //This method is responsible for storing payment transactions to our database
+
+
         if (
             !$request->bearerToken() ||
             !Hash::check('P@$$worD123', $request->bearerToken())
         )
             return response(["message" => "Access Forbidden"], 403);
 
+        //Depending on payment type we will handle them differently
         if ($request->type === "full") {
             return $this->handleFullPayment($request);
         }
@@ -107,6 +95,8 @@ class PaymentController extends Controller
 
     private function handleSplitEqually(Request $request)
     {
+        //If the payment type is split equally, this method is called
+        //We're gonna store these bunch of data to our database
         $validator = Validator::make($request->all(), [
             "order_code" => "required|string|min:3",
             "amount" => "required|numeric|min:1",
@@ -142,6 +132,8 @@ class PaymentController extends Controller
 
     private function handleFullPayment(Request $request)
     {
+        //If the payment type is full payment, this method is called
+        //We're gonna store these bunch of data also to our database
         $validated = Validator::make($request->all(), [
             "order_code" => "required|string|min:3",
             "amount" => "required|numeric|min:1",
@@ -163,6 +155,7 @@ class PaymentController extends Controller
 
     private function storePayment($validated)
     {
+        //this method is called when we successfully satisfied the validation for each payment.
         $payment = Payment::create($validated);
         $reference = $payment->references()->create($validated);
         $reference->purchases()->createMany($validated['orders']);

@@ -9,6 +9,16 @@
         <v-icon class="navIcon">mdi-home-roof</v-icon>
         <router-link to="/home" class="navText">Home</router-link>
       </li>
+      <li
+        class="navItem"
+        :class="{ active: $route.name == 'transaction' }"
+        disabled
+      >
+        <v-icon class="navIcon">mdi-id-card</v-icon>
+        <router-link to="/transaction" class="navText"
+          >Transactions</router-link
+        >
+      </li>
       <li class="navItem" :class="{ active: $route.name == 'menu' }">
         <v-icon class="navIcon">mdi-view-list</v-icon>
         <router-link to="/menu" class="navText">Menu</router-link>
