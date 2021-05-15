@@ -2361,7 +2361,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               return location.reload();
             });
           })["catch"](function (err) {
-            return Swal.fire("Deleted!", err.response.data.message, "error");
+            return Swal.fire("Failed!", err.response.data.message, "error");
           });
         }
       });
@@ -2538,6 +2538,8 @@ __webpack_require__.r(__webpack_exports__);
             _this.reloadMenus();
 
             Swal.fire("Deleted!", "Menu has been deleted successfully", "success");
+          })["catch"](function (err) {
+            Swal.fire("Failed!", err.response.data.message, "error");
           });
         }
       });
@@ -2599,6 +2601,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      username: "Admin"
+    };
+  },
   methods: {
     logout: function logout() {
       var _this = this;
@@ -2610,7 +2617,17 @@ __webpack_require__.r(__webpack_exports__);
           name: "login"
         });
       });
+    },
+    getUser: function getUser() {
+      var _this2 = this;
+
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user", (0,_dev_token__WEBPACK_IMPORTED_MODULE_1__.default)()).then(function (r) {
+        _this2.username = r.data.username;
+      });
     }
+  },
+  created: function created() {
+    this.getUser();
   }
 });
 
@@ -29740,7 +29757,13 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "main" }, [
-    _vm._m(0),
+    _c("div", { staticClass: "profile-info" }, [
+      _c("div", { staticClass: "profileImg" }),
+      _vm._v(" "),
+      _c("h3", { staticClass: "font-weight-bold" }, [
+        _vm._v("Hi, " + _vm._s(_vm.username) + "!")
+      ])
+    ]),
     _vm._v(" "),
     _c("ul", { staticClass: "navigations" }, [
       _c(
@@ -29815,18 +29838,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "profile-info" }, [
-      _c("div", { staticClass: "profileImg" }),
-      _vm._v(" "),
-      _c("h3", { staticClass: "font-weight-bold" }, [_vm._v("Hi, Admin!")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

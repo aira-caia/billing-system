@@ -30,4 +30,5 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('user', AuthController::class)->only('index', 'update');
     Route::get("orders", [PaymentController::class, "orders"]);
     Route::get("home", [\App\Http\Controllers\AuthController::class, "home"]);
+    Route::resource('payment', PaymentController::class)->only("update");
 });

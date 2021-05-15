@@ -22,6 +22,7 @@ class CreatePaymentsTable extends Migration
             $table->string('type');
             $table->string('table_name');
             $table->unsignedInteger("split_count")->nullable();
+            $table->boolean("is_served")->default(0);
             $table->timestamps();
         });
     }

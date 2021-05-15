@@ -2,7 +2,7 @@
   <div class="main">
     <div class="profile-info">
       <div class="profileImg"></div>
-      <h3 class="font-weight-bold">Hi, Admin!</h3>
+      <h3 class="font-weight-bold">Hi, {{ username }}!</h3>
     </div>
     <ul class="navigations">
       <li class="navItem" :class="{ active: $route.name === 'home' }">
@@ -37,6 +37,9 @@
 import axios from "axios";
 import token from "../../dev/token";
 export default {
+  data: () => ({
+    username: "Admin",
+  }),
   methods: {
     logout() {
       axios.post("/api/logout", {}, token()).then((r) => {
@@ -44,6 +47,14 @@ export default {
         this.$router.push({ name: "login" });
       });
     },
+    getUser() {
+      axios.get("/api/user", token()).then((r) => {
+        this.username = r.data.username;
+      });
+    },
+  },
+  created() {
+    this.getUser();
   },
 };
 </script>

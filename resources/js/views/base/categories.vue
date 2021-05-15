@@ -125,7 +125,7 @@ export default {
               ).then(() => location.reload());
             })
             .catch((err) =>
-              Swal.fire("Deleted!", err.response.data.message, "error")
+              Swal.fire("Failed!", err.response.data.message, "error")
             );
         }
       });

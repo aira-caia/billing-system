@@ -19,8 +19,9 @@ class PaymentResource extends JsonResource
             "id" => $this->id,
             "paid_at" => Carbon::parse($this->created_at)->isoFormat("lll"),
             "time_passed" => Carbon::parse($this->created_at)->diffForHumans(),
-            "total" => number_format($this->amount, 2),
-            "orders" => PurchaseResource::collection($this->references->first()->purchases)
+            "total" => number_format($this->where("order_code", $this->order_code)->sum("amount"), 2),
+            "orders" => PurchaseResource::collection($this->references->first()->purchases),
+            "is_served" => $this->is_served
         ];
     }
 }

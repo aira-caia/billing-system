@@ -56,14 +56,19 @@ export default {
         confirmButtonText: "Yes, delete it!",
       }).then((result) => {
         if (result.isConfirmed) {
-          axios.delete(`/api/menu/${menu_id}`, token()).then((r) => {
-            this.reloadMenus();
-            Swal.fire(
-              "Deleted!",
-              "Menu has been deleted successfully",
-              "success"
-            );
-          });
+          axios
+            .delete(`/api/menu/${menu_id}`, token())
+            .then((r) => {
+              this.reloadMenus();
+              Swal.fire(
+                "Deleted!",
+                "Menu has been deleted successfully",
+                "success"
+              );
+            })
+            .catch((err) => {
+              Swal.fire("Failed!", err.response.data.message, "error");
+            });
         }
       });
     },

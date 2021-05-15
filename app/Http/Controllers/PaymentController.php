@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\OrderResource;
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\PurchaseResource;
 use App\Models\Payment;
-use App\Models\Purchase;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -17,8 +15,15 @@ class PaymentController extends Controller
 
     public function orders()
     {
-        $payments = PaymentResource::collection(Payment::orderByDesc("id",)->groupBy("order_code")->get());
+        $payments = PaymentResource::collection(Payment::orderBy("is_served")->groupBy("order_code")->get());
         return $payments;
+    }
+
+
+    public function update(Payment $payment)
+    {
+        Payment::where("order_code", $payment->order_code)->update(["is_served" => !$payment->is_served]);
+        return response(["message" => "OK"]);
     }
 
     public function show(Request $request, $orderCode)

@@ -80,6 +80,10 @@ class MenuController extends Controller
      */
     public function destroy(Menu $menu)
     {
+        if ($menu->purchases->count() > 0) {
+            return response(["message" => "This menu has an existing records of purchases."], 400);
+        }
+
         Storage::disk('public')->delete("images/" . $menu->image_path);
         Storage::disk('public')->delete("images/menu/" . $menu->image_path);
         $menu->delete();
