@@ -2718,16 +2718,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -2811,6 +2801,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_11___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_11__);
 /* harmony import */ var _dev_token__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../dev/token */ "./resources/js/dev/token.js");
+//
+//
+//
+//
+//
 //
 //
 //
@@ -29635,25 +29630,6 @@ var render = function() {
         "li",
         {
           staticClass: "navItem",
-          class: { active: _vm.$route.name == "transaction" },
-          attrs: { disabled: "" }
-        },
-        [
-          _c("v-icon", { staticClass: "navIcon" }, [_vm._v("mdi-id-card")]),
-          _vm._v(" "),
-          _c(
-            "router-link",
-            { staticClass: "navText", attrs: { to: "/transaction" } },
-            [_vm._v("Transactions")]
-          )
-        ],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "li",
-        {
-          staticClass: "navItem",
           class: { active: _vm.$route.name == "menu" }
         },
         [
@@ -29818,50 +29794,63 @@ var render = function() {
               ])
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "cardRow" }, [
-              _c("div", { staticClass: "myCardMedium" }, [
-                _c("h3", [_vm._v("Revenue")]),
-                _vm._v(" "),
-                _c("img", {
-                  staticClass: "iconMed",
-                  attrs: { src: _vm.iconCoins, alt: "icon_pot" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "total" }, [
-                  _c("strong", [_vm._v("Total")]),
+            _c(
+              "div",
+              { staticClass: "cardRow" },
+              [
+                _c("div", { staticClass: "myCardMedium" }, [
+                  _c("h3", [_vm._v("Revenue")]),
                   _vm._v(" "),
-                  _c("br"),
+                  _c("img", {
+                    staticClass: "iconMed",
+                    attrs: { src: _vm.iconCoins, alt: "icon_pot" }
+                  }),
                   _vm._v(" "),
-                  _c(
-                    "span",
-                    [
-                      _c("v-icon", [_vm._v("mdi-currency-php")]),
-                      _vm._v(
-                        "\n              " + _vm._s(_vm.payload["revenue"])
-                      )
-                    ],
-                    1
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "myCardMedium" }, [
-                _c("h3", [_vm._v("Transactions")]),
+                  _c("div", { staticClass: "total" }, [
+                    _c("strong", [_vm._v("Total")]),
+                    _vm._v(" "),
+                    _c("br"),
+                    _vm._v(" "),
+                    _c(
+                      "span",
+                      [
+                        _c("v-icon", [_vm._v("mdi-currency-php")]),
+                        _vm._v(
+                          "\n              " + _vm._s(_vm.payload["revenue"])
+                        )
+                      ],
+                      1
+                    )
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("img", {
-                  staticClass: "iconMed",
-                  attrs: { src: _vm.iconCashier, alt: "icon_pot" }
-                }),
-                _vm._v(" "),
-                _c("div", { staticClass: "total" }, [
-                  _c("strong", [_vm._v("Total")]),
-                  _vm._v(" "),
-                  _c("br"),
-                  _vm._v(" "),
-                  _c("span", [_vm._v(_vm._s(_vm.payload["transactions"]))])
-                ])
-              ])
-            ])
+                _c(
+                  "router-link",
+                  {
+                    staticClass: "myCardMedium",
+                    staticStyle: { cursor: "pointer" },
+                    attrs: { to: "/transaction", tag: "div" }
+                  },
+                  [
+                    _c("h3", [_vm._v("Transactions")]),
+                    _vm._v(" "),
+                    _c("img", {
+                      staticClass: "iconMed",
+                      attrs: { src: _vm.iconCashier, alt: "icon_pot" }
+                    }),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "total" }, [
+                      _c("strong", [_vm._v("Total")]),
+                      _vm._v(" "),
+                      _c("br"),
+                      _vm._v(" "),
+                      _c("span", [_vm._v(_vm._s(_vm.payload["transactions"]))])
+                    ])
+                  ]
+                )
+              ],
+              1
+            )
           ])
         ],
         1

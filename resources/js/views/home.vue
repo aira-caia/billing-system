@@ -36,14 +36,19 @@
               >
             </div>
           </div>
-          <div class="myCardMedium">
+          <router-link
+            class="myCardMedium"
+            style="cursor: pointer"
+            to="/transaction"
+            tag="div"
+          >
             <h3>Transactions</h3>
             <img :src="iconCashier" class="iconMed" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
               <span>{{ payload["transactions"] }}</span>
             </div>
-          </div>
+          </router-link>
         </div>
       </div>
     </div>
