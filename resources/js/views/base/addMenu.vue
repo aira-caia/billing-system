@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import imageFile from "../../assets/icons/image_file.svg";
+import imageFile from "../../assets/icons/image_file.png";
 import Form from "../../plugins/Form";
 import axios from "axios";
 import token from "../../dev/token";
@@ -269,7 +269,8 @@ export default {
 .imageCircle {
   width: 132px;
   height: 132px;
-  background: #a3a3a3;
+  background: #fff;
+    border-bottom: 3px solid #222;
   border-radius: 50%;
   display: flex;
   justify-content: center;

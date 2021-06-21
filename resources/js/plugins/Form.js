@@ -157,7 +157,9 @@ class Form {
      */
     submit(requestType, url) {
         return new Promise((resolve, reject) => {
-            axios[requestType](url, this.data())
+            axios[requestType](url, this.data(),
+                /* Remove/change this for token authentication*/
+                { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` } })
                 .then(response => {
                     this.onSuccess(response.data);
 

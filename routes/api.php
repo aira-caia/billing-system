@@ -2,8 +2,6 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PaymentController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +16,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('payment', PaymentController::class)->only("store", "show");
+Route::get("orders", [PaymentController::class, "orders"]);
+
+Route::get("receipt/{q}", [PaymentController::class, "receipt"]);
+Route::get("receipt/v2/{q}", [PaymentController::class, "receiptWeb"]);
 
 Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('index');
 Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('index');
@@ -28,8 +30,9 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('store', 'destroy');
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::resource('user', AuthController::class)->only('index', 'update');
-    Route::get("orders", [PaymentController::class, "orders"]);
     Route::get("payments", [PaymentController::class, "payments"]);
+    Route::get("payments/v2", [PaymentController::class, "webPayments"]);
     Route::get("home", [\App\Http\Controllers\AuthController::class, "home"]);
     Route::resource('payment', PaymentController::class)->only("update");
+    Route::resource('report', \App\Http\Controllers\ReportController::class)->only("index");
 });

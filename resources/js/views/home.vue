@@ -7,25 +7,35 @@
       <img :src="welcomeIcon" class="welcomeIcon" alt="" />
       <div class="miniContainer">
         <div class="cardRow">
-          <div class="myCardSmall">
+          <!--    <div class="myCardSmall">
             <h3>Food served</h3>
             <img :src="iconPot" class="iconPot" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
               <span>{{ payload["serve"] }}</span>
             </div>
-          </div>
-          <div class="myCardSmall">
+          </div> -->
+          <router-link
+            style="cursor: pointer"
+            to="/reports#monthlyPurchase"
+            tag="div"
+            class="myCardSmall cardStretch"
+          >
             <h3>Sold</h3>
             <img :src="iconCart" class="iconPot" alt="icon_pot" />
             <div class="total">
               <strong>Total</strong> <br />
               <span>{{ payload["serve"] }}</span>
             </div>
-          </div>
+          </router-link>
         </div>
         <div class="cardRow">
-          <div class="myCardMedium">
+          <router-link
+            style="cursor: pointer"
+            to="/reports#monthlySales"
+            tag="div"
+            class="myCardMedium"
+          >
             <h3>Revenue</h3>
             <img :src="iconCoins" class="iconMed" alt="icon_pot" />
             <div class="total">
@@ -35,7 +45,7 @@
                 {{ payload["revenue"] }}</span
               >
             </div>
-          </div>
+          </router-link>
           <router-link
             class="myCardMedium"
             style="cursor: pointer"
@@ -121,6 +131,11 @@ export default {
   position: relative;
   padding: 25px 35px;
   margin-right: 40px;
+}
+.cardStretch {
+  width: 100%;
+  max-width: 754px;
+  min-width: 255px;
 }
 .myCardMedium {
   background: #fff;

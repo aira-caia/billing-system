@@ -3,14 +3,20 @@
     <div
       class="myCards"
       v-for="menu in menus"
+      :key="menu.id"
       :class="{ 'justify-content-center': menu.length === 2 }"
     >
       <div
         class="myCard"
         v-for="item in menu"
+        :key="item.id"
         :class="{ 'mx-12': menu.length === 2 }"
       >
-        <img :src="item.image_path" alt="food_image" />
+        <img
+          @click="handleEditDialog(item)"
+          :src="item.image_path"
+          alt="food_image"
+        />
         <h3 class="font-weight-bold">{{ item.title }}</h3>
         <p>
           {{ item.ingredients }}
@@ -25,12 +31,61 @@
         >
       </div>
     </div>
+    <v-dialog v-model="dialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title>
+          <span class="text-h5">Menu Details</span>
+        </v-card-title>
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12">
+                <v-text-field
+                  :error-messages="form.errors.get('title')"
+                  v-model="form.title"
+                  label="Title*"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-text-field
+                  :error-messages="form.errors.get('price')"
+                  v-model="form.price"
+                  label="Price*"
+                  step="0.01"
+                  type="number"
+                  required
+                ></v-text-field>
+              </v-col>
+              <v-col cols="12">
+                <v-textarea
+                  :error-messages="form.errors.get('ingredients')"
+                  outlined
+                  v-model="form.ingredients"
+                  name="input-7-4"
+                  label="Ingredients"
+                ></v-textarea>
+              </v-col>
+            </v-row>
+          </v-container>
+          <small>*indicates required field</small>
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="blue darken-1" text @click="dialog = false">
+            Close
+          </v-btn>
+          <v-btn color="blue darken-1" text @click="handleSave"> Save </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
 import axios from "axios";
 import token from "../../dev/token";
+import Form from "../../plugins/Form";
 
 export default {
   props: {
@@ -43,8 +98,37 @@ export default {
   },
   data: () => ({
     rows: 0,
+    dialog: false,
+    form: new Form({
+      title: "",
+      price: 0,
+      ingredients: "",
+      id: 0,
+    }),
   }),
   methods: {
+    handleEditDialog(menu) {
+      this.form.title = menu.title;
+      this.form.price = menu.price;
+      this.form.ingredients = menu.ingredients;
+      this.form.id = menu.id;
+      this.dialog = true;
+    },
+    async handleSave() {
+      try {
+        const request = await this.form.patch(`/api/menu/${this.form.id}`);
+        Swal.fire({
+          timer: 1000,
+          position: "top-end",
+          title: request.message,
+          showConfirmButton: false,
+          icon: "success",
+        }).then((r) => location.reload());
+        this.dialog = false;
+      } catch (error) {
+        this.form.errors.set(error.errors);
+      }
+    },
     removeMenu(menu_id) {
       Swal.fire({
         title: "Are you sure?",

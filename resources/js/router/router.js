@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Login from "../views/login.vue"
+import Reports from "../views/Reports.vue"
 import Menu from "../views/settings.vue"
 import home from "../views/home.vue"
 import profile from "../views/profile.vue"
@@ -32,6 +33,14 @@ const routes = [
         path: '/home',
         component: home,
         name: "home",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/reports',
+        component: Reports,
+        name: "reports",
         meta: {
             middlewares: [middlewares.auth]
         }

@@ -23,6 +23,7 @@ class PurchaseResource extends JsonResource
             "ingredients" => $this->menu->ingredients ?? "Not Specified",
             "count" => $this->count == 1 ? $this->count . " PIECE" : $this->count . " PIECES",
             "amount" => number_format($this->amount, 2),
+            "realAmount" => $this->amount,
             "image" => $this->menu->image_path,
         ];
     }

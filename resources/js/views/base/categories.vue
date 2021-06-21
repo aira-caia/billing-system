@@ -83,22 +83,21 @@ export default {
     };
   },
   watch: {
-    categories() {
-      this.$loadScript(
+    async categories() {
+      await this.$loadScript(
         "https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+      );
+      await this.$loadScript(
+        "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
       ).then(() => {
-        this.$loadScript(
-          "https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"
-        ).then(() => {
-          $(".slider").slick({
-            infinite: false,
-            slidesToShow:
-              this.categories.length < this.categories.length
-                ? this.categories.length
-                : 6,
-            slidesToScroll: 5,
-            dots: true,
-          });
+        $(".slider").slick({
+          infinite: false,
+          slidesToShow:
+            this.categories.length < this.categories.length
+              ? this.categories.length
+              : 6,
+          slidesToScroll: 5,
+          dots: true,
         });
       });
     },

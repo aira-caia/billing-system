@@ -99,4 +99,18 @@ class MenuController extends Controller
             'message' => "OK"
         ]);
     }
+
+    public function update(Request $request, Menu $menu)
+    {
+        $validated = $request->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'ingredients' => 'nullable|string',
+        ]);
+        $menu->update($validated);
+
+        return response([
+            'message' => "New menu has been created."
+        ]);
+    }
 }

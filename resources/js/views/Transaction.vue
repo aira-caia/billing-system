@@ -21,7 +21,6 @@
             :headers="headers"
             :items="payments"
             item-key="id"
-            group-by="order_code"
             :search="search"
           ></v-data-table>
         </v-card>
@@ -70,7 +69,7 @@ export default {
         align: "start",
         value: "id",
       },
-      { text: "Order Code", value: "order_code" },
+      // { text: "Order Code", value: "order_code" },
       { text: "Receipt Number", value: "receipt_number" },
       { text: "Payment Type", value: "type" },
       { text: "Amount (Peso)", value: "total" },
@@ -90,17 +89,17 @@ export default {
     purchases: [],
   }),
   created() {
-    axios.get("/api/payments", token()).then((r) => {
+    axios.get("/api/payments/v2", token()).then((r) => {
       this.payments = r.data.data;
     });
   },
   methods: {
     handleClick(value) {
-      this.getPurchase(value.order_code);
+      this.getPurchase(value.receipt_number);
     },
     getPurchase(code) {
       axios
-        .get(`/api/payment/${code}`, {
+        .get(`/api/receipt/v2/${code}`, {
           headers: {
             Authorization:
               "Bearer $2y$10$tmoxPjspNPUZvXDUsMg.huWw4RGsaA.aiivrKs1kOhafxaMubAAZ.",
@@ -108,7 +107,6 @@ export default {
         })
         .then((r) => {
           this.purchases = r.data.orders;
-          console.log(this.purchases);
         });
     },
   },

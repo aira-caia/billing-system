@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\PaymentResource;
 use App\Http\Resources\PurchaseResource;
+use App\Http\Resources\WebPaymentResource;
 use App\Models\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -12,11 +14,23 @@ use Illuminate\Support\Facades\Validator;
 class PaymentController extends Controller
 {
 
-
-    public function orders()
+    // This method will return the details of our transactions group by order code.
+    public function orders(Request $request)
     {
-        // This method will return the details of our transactions group by order code.
-        $payments = PaymentResource::collection(Payment::orderBy("is_served")->groupBy("order_code")->get());
+        if (
+            !$request->bearerToken() ||
+            !Hash::check('P@$$worD123', $request->bearerToken())
+        )
+            return response(["message" => "Access Forbidden"], 403);
+
+        if ($request->is_served == "1") {
+            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 1)->groupBy("order_code")->get());
+        } else if ($request->is_served == "0") {
+            $payments = PaymentResource::collection(Payment::orderBy("is_served")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 0)->groupBy("order_code")->get());
+        } else {
+            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code")->get());
+        }
+        // return ['data' => []];
         return $payments;
     }
 
@@ -24,6 +38,13 @@ class PaymentController extends Controller
     {
         // This method will also return the details of our all transactions.
         $payments = PaymentResource::collection(Payment::all());
+        return $payments;
+    }
+
+    public function webPayments()
+    {
+        // This method will also return the details of our all transactions.
+        $payments = WebPaymentResource::collection(Payment::all());
         return $payments;
     }
 
@@ -47,7 +68,41 @@ class PaymentController extends Controller
             return response(["message" => "Access Forbidden"], 403);
 
         $payment = Payment::where("order_code", $orderCode)->orderBy("id")->first();
-        $orders = PurchaseResource::collection($payment->references->first()->purchases);
+        if ($payment == null) {
+            abort(403);
+        }
+
+        if ($payment->type === "split_item") {
+            $payments = Payment::where("order_code", $orderCode)->orderBy("id")->get();
+            $orders = collect();
+            $payments->each(function ($p) use (&$orders) {
+                $stores = PurchaseResource::collection($p->references->first()->purchases);
+                $load = collect();
+                $stores->each(function ($store) use (&$orders, &$load) {
+                    $store['title'] = $store->menu->title;
+                    $store['image'] = $store->menu->image_path;
+                    $store['ingredients'] = $store->menu->ingredients ?? "Not Specified";
+                    if ($orders->contains("menu_id", "=", $store->menu_id)) {
+                        $totalCount = intval($orders->firstWhere("menu_id", "=", $store->menu_id)->count) + $store->count;
+                        $totalAmount = floatval($orders->firstWhere("menu_id", "=", $store->menu_id)->amount) + $store->amount;
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->count = $totalCount == 1 ? $totalCount . " PIECE" : $totalCount . " PIECES";
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->amount = number_format($totalAmount, 2);
+                    } else {
+                        $store['count'] = $store->count == 1 ? $store->count . " PIECE" : $store->count . " PIECES";
+                        $store['amount'] =  number_format($store->amount, 2);
+                        $load = $load->concat($store);
+                    }
+                });
+                if ($load->count() > 0) {
+                    $orders = $orders->concat($load->filter(function ($value) {
+                        return $value != null;
+                    }));
+                }
+            });
+        } else {
+            $orders = PurchaseResource::collection($payment->references->first()->purchases);
+        }
+
 
         if ($payment->type === "full") $paymentType = "FULL PAYMENT";
         elseif ($payment->type === "split_equally") $paymentType = "SPLIT EQUALLY";
@@ -67,7 +122,172 @@ class PaymentController extends Controller
             "receiptNumbers",
             "orders",
             "distribution",
-            "total"
+            "total",
+        ));
+    }
+
+    public function receiptWeb(Request $request, $receiptNumber)
+    {
+        //This method will show a specific transaction details base on order code provided.
+        //The request is only possible if it carries a bearer token, equal to this data below.
+        if (
+            !$request->bearerToken() ||
+            !Hash::check('P@$$worD123', $request->bearerToken())
+        )
+            return response(["message" => "Access Forbidden"], 403);
+
+        $payment = Payment::where("receipt_number", $receiptNumber)->orderBy("id")->first();
+        if ($payment == null) {
+            abort(403);
+        }
+
+        if ($payment->type === "split_item") {
+            $payments = Payment::where("receipt_number", $receiptNumber)->orderBy("id")->get();
+            $orders = collect();
+            $payments->each(function ($p) use (&$orders) {
+                $stores = PurchaseResource::collection($p->references->first()->purchases);
+                $load = collect();
+                $stores->each(function ($store) use (&$orders, &$load) {
+                    $store['title'] = $store->menu->title;
+                    $store['image'] = $store->menu->image_path;
+                    $store['ingredients'] = $store->menu->ingredients ?? "Not Specified";
+                    if ($orders->contains("menu_id", "=", $store->menu_id)) {
+                        $totalCount = intval($orders->firstWhere("menu_id", "=", $store->menu_id)->count) + $store->count;
+                        $totalAmount = floatval($orders->firstWhere("menu_id", "=", $store->menu_id)->amount) + $store->amount;
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->count = $totalCount == 1 ? $totalCount . " PIECE" : $totalCount . " PIECES";
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->amount = number_format($totalAmount, 2);
+                    } else {
+                        $store['count'] = $store->count == 1 ? $store->count . " PIECE" : $store->count . " PIECES";
+                        $store['amount'] =  number_format($store->amount, 2);
+                        $load = $load->concat($store);
+                    }
+                });
+                if ($load->count() > 0) {
+                    $orders = $orders->concat($load->filter(function ($value) {
+                        return $value != null;
+                    }));
+                }
+            });
+        } else if ($payment->type === "split_equally") {
+            $myPayment = Payment::where("order_code", $payment->order_code)->orderBy("id")->first();
+            $orders = PurchaseResource::collection($myPayment->references->first()->purchases);
+        } else {
+            $orders = PurchaseResource::collection($payment->references->first()->purchases);
+        }
+
+
+
+
+        if ($payment->type === "full") $paymentType = "FULL PAYMENT";
+        elseif ($payment->type === "split_equally") $paymentType = "SPLIT EQUALLY";
+        else $paymentType = "SPLIT BY ITEM";
+
+        $orderCode = $payment->order_code;
+        /*
+        $numberOfAccounts = Payment::where("order_code", $orderCode)->count();
+        $receiptNumbers = Payment::where("order_code", $orderCode)->pluck("receipt_number"); */
+        $refNumber = $payment->references->first()->reference_number;
+        $total = number_format(Payment::where("receipt_number", $receiptNumber)->sum("amount"), 2);
+        $realTotal = Payment::where("receipt_number", $receiptNumber)->sum("amount");
+        // $distribution = number_format($payment->amount, 2);
+        $tableName = $payment->table_name;
+        $date = $payment->created_at->format("M d, Y");
+        $time = $payment->created_at->format("h:i A");
+        $count = $payment->split_count;
+        return response()->json(compact(
+            "paymentType",
+            "orderCode",
+            // "numberOfAccounts",
+            "refNumber",
+            // "receiptNumbers",
+            "orders",
+            "count",
+            // "distribution",
+            "total",
+            "realTotal",
+            "tableName",
+            "date",
+            "time",
+        ));
+    }
+
+    public function receipt(Request $request, $receiptNumber)
+    {
+        //This method will show a specific transaction details base on order code provided.
+        //The request is only possible if it carries a bearer token, equal to this data below.
+        if (
+            !$request->bearerToken() ||
+            !Hash::check('P@$$worD123', $request->bearerToken())
+        )
+            return response(["message" => "Access Forbidden"], 403);
+
+        $payment = Payment::where("receipt_number", $receiptNumber)->orderBy("id")->first();
+        if ($payment == null) {
+            abort(403);
+        }
+
+        if ($payment->type === "split_item") {
+            $payments = Payment::where("receipt_number", $receiptNumber)->orderBy("id")->get();
+            $orders = collect();
+            $payments->each(function ($p) use (&$orders) {
+                $stores = PurchaseResource::collection($p->references->first()->purchases);
+                $load = collect();
+                $stores->each(function ($store) use (&$orders, &$load) {
+                    $store['title'] = $store->menu->title;
+                    $store['image'] = $store->menu->image_path;
+                    $store['ingredients'] = $store->menu->ingredients ?? "Not Specified";
+                    if ($orders->contains("menu_id", "=", $store->menu_id)) {
+                        $totalCount = intval($orders->firstWhere("menu_id", "=", $store->menu_id)->count) + $store->count;
+                        $totalAmount = floatval($orders->firstWhere("menu_id", "=", $store->menu_id)->amount) + $store->amount;
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->count = $totalCount == 1 ? $totalCount . " PIECE" : $totalCount . " PIECES";
+                        $orders->firstWhere("menu_id", "=", $store->menu_id)->amount = number_format($totalAmount, 2);
+                    } else {
+                        $store['count'] = $store->count == 1 ? $store->count . " PIECE" : $store->count . " PIECES";
+                        $store['amount'] =  number_format($store->amount, 2);
+                        $load = $load->concat($store);
+                    }
+                });
+                if ($load->count() > 0) {
+                    $orders = $orders->concat($load->filter(function ($value) {
+                        return $value != null;
+                    }));
+                }
+            });
+        } else {
+            $orders = PurchaseResource::collection($payment->references->first()->purchases);
+        }
+
+
+        if ($payment->type === "full") $paymentType = "FULL PAYMENT";
+        elseif ($payment->type === "split_equally") $paymentType = "SPLIT EQUALLY";
+        else $paymentType = "SPLIT BY ITEM";
+
+        $orderCode = $payment->order_code;
+        /*
+        $numberOfAccounts = Payment::where("order_code", $orderCode)->count();
+        $receiptNumbers = Payment::where("order_code", $orderCode)->pluck("receipt_number"); */
+        $refNumber = $payment->references->first()->reference_number;
+        $total = number_format(Payment::where("receipt_number", $receiptNumber)->sum("amount"), 2);
+        $realTotal = Payment::where("receipt_number", $receiptNumber)->sum("amount");
+        // $distribution = number_format($payment->amount, 2);
+        $tableName = $payment->table_name;
+        $date = $payment->created_at->format("M d, Y");
+        $time = $payment->created_at->format("h:i A");
+        $count = $payment->split_count;
+        return response()->json(compact(
+            "paymentType",
+            "orderCode",
+            // "numberOfAccounts",
+            "refNumber",
+            // "receiptNumbers",
+            "orders",
+            "count",
+            // "distribution",
+            "total",
+            "realTotal",
+            "tableName",
+            "date",
+            "time",
         ));
     }
 
@@ -83,9 +303,10 @@ class PaymentController extends Controller
             return response(["message" => "Access Forbidden"], 403);
 
         //Depending on payment type we will handle them differently
-        if ($request->type === "full") {
+        if ($request->type === "full" || $request->type === "split_item") {
             return $this->handleFullPayment($request);
         }
+
         if ($request->type === "split_equally") {
             return $this->handleSplitEqually($request);
         }
