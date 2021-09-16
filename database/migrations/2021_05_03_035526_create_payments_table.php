@@ -19,6 +19,7 @@ class CreatePaymentsTable extends Migration
             $table->text('payment_id');
             $table->text('receipt_number');
             $table->double('amount');
+            $table->string('method');
             $table->string('type');
             $table->string('table_name');
             $table->unsignedInteger("split_count")->nullable();

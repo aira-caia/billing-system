@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use App\Models\Menu;
 
 class PaymentController extends Controller
 {
@@ -307,11 +308,74 @@ class PaymentController extends Controller
             return $this->handleFullPayment($request);
         }
 
-        if ($request->type === "split_equally") {
+        if ($request->type === "split_equally" && $request->get('method') !== 'paypal') {
             return $this->handleSplitEqually($request);
         }
 
+        if ($request->type === "split_equally" && $request->get('method') === 'paypal') {
+            return $this->handleSplitEquallyPaypal($request);
+        }
+
         return response(['message' => "Forbidden Request"], 403);
+    }
+
+    private function handleSplitEquallyPaypal(Request $request)
+    {
+        //If the payment type is split equally, this method is called
+        //We're gonna store these bunch of data to our database
+        $validator = Validator::make($request->all(), [
+            "order_code" => "required|string|min:3",
+            "amount" => "required|numeric|min:1",
+            "type" => "required",
+            "method" => "required",
+            "split_count" => "required|numeric|min:0",
+            "table_name" => "required|string",
+//            "reference_number" => "required|string|min:5",
+//            "receipt_number" => "required|string|min:2",
+//            "payment_id" => "required|string|min:5",
+            "orders" => "required|array"
+        ]);
+
+        if ($validator->fails()) {
+            return response(['message' => 'Error', 'errors' => $validator->errors()], 400);
+        }
+
+        $validated = $validator->validated();
+
+        $gateway = new \Braintree\Gateway([
+            'environment' => 'sandbox',
+            'merchantId' => 'mhjfnw88grqcb72s',
+            'publicKey' => 'snk3hfq997gxjx53',
+            'privateKey' => '89ba1cfaebef49533c19e1d02e5d0523'
+        ]);
+
+        $transaction = $gateway->transaction()->sale([
+            'amount' => $request->amount,
+            'paymentMethodNonce' => $request->nonce,
+            'deviceData' => 'default',
+            'options' => [
+                'submitForSettlement' => true
+            ]
+        ]);
+
+        $validated['payment_id'] = $transaction->transaction->id;
+        $validated['receipt_number'] = $transaction->transaction->paypal['captureId'];
+        $validated['reference_number'] = $transaction->transaction->paypal['paymentId'];
+
+        $paymentExists = Payment::where("order_code", $validated['order_code'])
+            ->where("type", $validated['type'])
+            ->where("table_name", $validated['table_name'])
+            ->where("split_count", $validated['split_count'])->exists();
+        if ($paymentExists) {
+            //insert, ref, payment
+            $payment = Payment::create($validated);
+            $payment->references()->create($validated);
+        } else {
+            //ref, payment, purchases
+            $this->storePayment($validated);
+        }
+
+        return response(["message" => "OK", 'receipt_number' => $transaction->transaction->paypal['captureId']]);
     }
 
     private function handleSplitEqually(Request $request)
@@ -351,26 +415,68 @@ class PaymentController extends Controller
         return response(["message" => "OK"]);
     }
 
+    //If the payment type is full payment, this method is called
+    //We're gonna store these bunch of data also to our database
     private function handleFullPayment(Request $request)
     {
-        //If the payment type is full payment, this method is called
-        //We're gonna store these bunch of data also to our database
-        $validated = Validator::make($request->all(), [
-            "order_code" => "required|string|min:3",
-            "amount" => "required|numeric|min:1",
-            "receipt_number" => "required|string|min:2",
-            "payment_id" => "required|string|min:5",
-            "type" => "required",
-            "split_count" => "nullable|numeric|min:0",
-            "table_name" => "required|string",
-            "reference_number" => "required|string|min:5",
-            "orders" => "required|array"
-        ]);
+        if($request->get('method') === 'paypal'){
+            $validated = Validator::make($request->all(), [
+                "type" => "required",
+                "method" => "required",
+                "nonce" => "required|string",
+                "order_code" => "required|string|min:3",
+                "amount" => "required|numeric|min:1",
+                "table_name" => "required|string",
+                "orders" => "required|array",
+//                "receipt_number" => "required|string|min:2",
+//                "payment_id" => "required|string|min:5",
+//                "split_count" => "nullable|numeric|min:0",
+//                "reference_number" => "required|string|min:5",
+            ]);
+            $gateway = new \Braintree\Gateway([
+                'environment' => 'sandbox',
+                'merchantId' => 'mhjfnw88grqcb72s',
+                'publicKey' => 'snk3hfq997gxjx53',
+                'privateKey' => '89ba1cfaebef49533c19e1d02e5d0523'
+            ]);
+            $transaction = $gateway->transaction()->sale([
+                'amount' => $request->amount,
+                'paymentMethodNonce' => $request->nonce,
+                'deviceData' => 'default',
+                'options' => [
+                    'submitForSettlement' => true
+                ]
+            ]);
+//            $validated['payment_id'] = $transaction['transaction']['id'];
+//            $validated['receipt_number'] = $transaction['paypal']['captureId'];
+//            $validated['reference_number'] = $transaction['paypal']['paymentId'];
+
+        }else{
+            $validated = Validator::make($request->all(), [
+                "order_code" => "required|string|min:3",
+                "amount" => "required|numeric|min:1",
+                "receipt_number" => "required|string|min:2",
+                "payment_id" => "required|string|min:5",
+                "type" => "required",
+                "split_count" => "nullable|numeric|min:0",
+                "table_name" => "required|string",
+                "reference_number" => "required|string|min:5",
+                "orders" => "required|array"
+            ]);
+        }
+
         if ($validated->fails()) {
             return response(['message' => 'Error', 'errors' => $validated->errors()], 400);
         }
-
-        $this->storePayment($validated->validated());
+        $data = $validated->validated();
+        if($request->get('method') === 'paypal') {
+            $data['payment_id'] = $transaction->transaction->id;
+            $data['receipt_number'] = $transaction->transaction->paypal['captureId'];
+            $data['reference_number'] = $transaction->transaction->paypal['paymentId'];
+        }else {
+            $data['method'] = 'paymaya';
+        }
+        $this->storePayment($data);
         return response(["message" => "OK"]);
     }
 
@@ -380,5 +486,8 @@ class PaymentController extends Controller
         $payment = Payment::create($validated);
         $reference = $payment->references()->create($validated);
         $reference->purchases()->createMany($validated['orders']);
+        foreach ($validated['orders'] as $order) {
+            Menu::find($order['menu_id'])->decrement('quantity',$order['count']);
+        }
     }
 }

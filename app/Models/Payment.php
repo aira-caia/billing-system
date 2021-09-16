@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ["order_code", "type", "split_count", "amount", "table_name", "payment_id", "receipt_number"];
+    protected $fillable = ["order_code", "type", "split_count", "amount", "table_name", "payment_id", "receipt_number","method"];
     use HasFactory;
 
     public function references()

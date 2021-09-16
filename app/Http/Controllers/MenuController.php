@@ -33,6 +33,11 @@ class MenuController extends Controller
         return response(['data' => MenuResource::collection($menu)]);
     }
 
+    public function show(Menu $menu)
+    {
+        return response(MenuResource::make($menu));
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -64,16 +69,17 @@ class MenuController extends Controller
         ]);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param \App\Models\Menu $menu
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Menu $menu)
+    public function inventory(Request $request)
     {
-        //
-    }
+        $validated = $request->validate([
+            'menu_id' => 'required|numeric|exists:menus,id',
+            'quantity' => 'required|numeric'
+        ]);
+
+        Menu::find($validated['menu_id'])->increment('quantity',$validated['quantity']);
+
+        return response(['message' => 'Stocks has been updated!']);
+   }
 
     /**
      * Remove the specified resource from storage.

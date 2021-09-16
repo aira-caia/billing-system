@@ -2801,6 +2801,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2816,16 +2873,43 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       rows: 0,
+      stockDialog: false,
       dialog: false,
       form: new _plugins_Form__WEBPACK_IMPORTED_MODULE_3__.default({
         title: "",
         price: 0,
         ingredients: "",
         id: 0
+      }),
+      stockForm: new _plugins_Form__WEBPACK_IMPORTED_MODULE_3__.default({
+        quantity: '',
+        menu_id: ''
       })
     };
   },
   methods: {
+    addStock: function addStock(menu) {
+      this.stockForm.menu_id = menu;
+      this.stockDialog = true;
+    },
+    saveStock: function saveStock() {
+      var _this = this;
+
+      this.stockForm.errors.clear();
+      this.stockForm.put('/api/inventory').then(function (res) {
+        Swal.fire({
+          timer: 1000,
+          position: "top-end",
+          title: res.message,
+          showConfirmButton: false,
+          icon: "success"
+        });
+        location.reload();
+        _this.stockDialog = false;
+      })["catch"](function (err) {
+        _this.stockForm.errors.set(err.errors);
+      });
+    },
     handleEditDialog: function handleEditDialog(menu) {
       this.form.title = menu.title;
       this.form.price = menu.price;
@@ -2834,7 +2918,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.dialog = true;
     },
     handleSave: function handleSave() {
-      var _this = this;
+      var _this2 = this;
 
       return _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
         var request;
@@ -2844,7 +2928,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return _this.form.patch("/api/menu/".concat(_this.form.id));
+                return _this2.form.patch("/api/menu/".concat(_this2.form.id));
 
               case 3:
                 request = _context.sent;
@@ -2857,7 +2941,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 }).then(function (r) {
                   return location.reload();
                 });
-                _this.dialog = false;
+                _this2.dialog = false;
                 _context.next = 11;
                 break;
 
@@ -2865,7 +2949,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.prev = 8;
                 _context.t0 = _context["catch"](0);
 
-                _this.form.errors.set(_context.t0.errors);
+                _this2.form.errors.set(_context.t0.errors);
 
               case 11:
               case "end":
@@ -2876,7 +2960,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     },
     removeMenu: function removeMenu(menu_id) {
-      var _this2 = this;
+      var _this3 = this;
 
       Swal.fire({
         title: "Are you sure?",
@@ -2889,7 +2973,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }).then(function (result) {
         if (result.isConfirmed) {
           axios__WEBPACK_IMPORTED_MODULE_1___default().delete("/api/menu/".concat(menu_id), (0,_dev_token__WEBPACK_IMPORTED_MODULE_2__.default)()).then(function (r) {
-            _this2.reloadMenus();
+            _this3.reloadMenus();
 
             Swal.fire("Deleted!", "Menu has been deleted successfully", "success");
           })["catch"](function (err) {
@@ -9115,10 +9199,8 @@ var routes = [{
   meta: {
     middlewares: [_middlewares_index__WEBPACK_IMPORTED_MODULE_6__.default.guest]
   }
-}, {
-  path: "*",
-  component: _views_404_vue__WEBPACK_IMPORTED_MODULE_7__.default
-}, {
+}, // { path: "*", component: NotFound },
+{
   path: '/menu',
   component: _views_settings_vue__WEBPACK_IMPORTED_MODULE_2__.default,
   name: "menu",
@@ -13825,7 +13907,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.myCard[data-v-2a43ad16] {\n  border: 1px solid #a5a5a5;\n  width: 100%;\n  max-width: 270px;\n  padding: 120px 30px 30px 30px;\n  position: relative;\n  border-radius: 45px;\n}\n.myCards[data-v-2a43ad16] {\n  display: flex;\n  justify-content: space-between;\n  margin-bottom: 80px;\n}\n.myCard[data-v-2a43ad16]:hover {\n  background: #efefef;\n}\n.myCard p[data-v-2a43ad16] {\n  font-size: 12px;\n  margin-top: 7px;\n  font-weight: bold;\n  margin-bottom: 55px;\n  word-wrap: break-word;\n  width: 100%;\n}\n.myCard h3[data-v-2a43ad16] {\n  font-size: 1.2rem;\n}\n.myCard span[data-v-2a43ad16] {\n  font-weight: bold;\n  font-size: 1.4rem;\n  position: absolute;\n  bottom: 30px;\n}\n.myCard img[data-v-2a43ad16] {\n  border-radius: 50%;\n  height: 132px;\n  width: 132px;\n  background-position: 50% 50%;\n  background-repeat: no-repeat;\n  -o-object-fit: cover;\n     object-fit: cover;\n  background-size: cover;\n  background: gray;\n  position: absolute;\n  top: 0;\n  transform: translate(-50%, -40%);\n  left: 50%;\n  cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16] {\n  border-radius: 55%;\n  background: #30334f;\n  position: absolute;\n  bottom: 20px;\n  right: 20px;\n  width: 50px;\n  height: 50px;\n  cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16]:hover {\n  background: red;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.myCard[data-v-2a43ad16] {\n    border: 1px solid #a5a5a5;\n    width: 100%;\n    max-width: 270px;\n    padding: 120px 30px 30px 30px;\n    position: relative;\n    border-radius: 45px;\n}\n.myCards[data-v-2a43ad16] {\n    display: flex;\n    justify-content: space-between;\n    margin-bottom: 80px;\n}\n.myCard[data-v-2a43ad16]:hover {\n    background: #efefef;\n}\n.myCard p[data-v-2a43ad16] {\n    font-size: 12px;\n    margin-top: 7px;\n    font-weight: bold;\n    margin-bottom: 55px;\n    word-wrap: break-word;\n    width: 100%;\n}\n.myCard h3[data-v-2a43ad16] {\n    font-size: 1.2rem;\n}\n.myCard span[data-v-2a43ad16] {\n    font-weight: bold;\n    font-size: 1.4rem;\n    position: absolute;\n    bottom: 30px;\n}\n.myCard img[data-v-2a43ad16] {\n    border-radius: 50%;\n    height: 132px;\n    width: 132px;\n    background-position: 50% 50%;\n    background-repeat: no-repeat;\n    -o-object-fit: cover;\n       object-fit: cover;\n    background-size: cover;\n    background: gray;\n    position: absolute;\n    top: 0;\n    transform: translate(-50%, -40%);\n    left: 50%;\n    cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16] {\n    border-radius: 55%;\n    background: #30334f;\n    position: absolute;\n    bottom: 20px;\n    right: 20px;\n    width: 50px;\n    height: 50px;\n    cursor: pointer;\n}\n.removeMenu[data-v-2a43ad16]:hover {\n    background: red;\n}\n.stockMenu[data-v-2a43ad16] {\n    border-radius: 55%;\n    background: #30334f;\n    position: absolute;\n    bottom: 80px;\n    right: 20px;\n    width: 30px;\n    height: 30px;\n    cursor: pointer;\n}\n.stockMenu[data-v-2a43ad16]:hover {\n    background: red;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -31937,8 +32019,17 @@ var render = function() {
                   _vm._v(_vm._s(item.title))
                 ]),
                 _vm._v(" "),
+                _c("small", [
+                  _vm._v("Stocks: "),
+                  _c("b", [_vm._v(_vm._s(item.quantity))])
+                ]),
+                _vm._v(" "),
                 _c("p", [
-                  _vm._v("\n        " + _vm._s(item.ingredients) + "\n      ")
+                  _vm._v(
+                    "\n                " +
+                      _vm._s(item.ingredients) +
+                      "\n            "
+                  )
                 ]),
                 _vm._v(" "),
                 _c("span", [_vm._v("P" + _vm._s(item.price))]),
@@ -31947,14 +32038,28 @@ var render = function() {
                   "v-icon",
                   {
                     staticClass: "removeMenu",
-                    attrs: { large: "", color: "white" },
+                    attrs: { color: "white", large: "" },
                     on: {
                       click: function($event) {
                         return _vm.removeMenu(item.id)
                       }
                     }
                   },
-                  [_vm._v("mdi-minus")]
+                  [_vm._v("mdi-minus\n            ")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "v-icon",
+                  {
+                    staticClass: "stockMenu",
+                    attrs: { color: "white", "x-small": "" },
+                    on: {
+                      click: function($event) {
+                        return _vm.addStock(item.id)
+                      }
+                    }
+                  },
+                  [_vm._v("mdi-truck\n            ")]
                 )
               ],
               1
@@ -31967,7 +32072,110 @@ var render = function() {
       _c(
         "v-dialog",
         {
-          attrs: { persistent: "", "max-width": "600px" },
+          attrs: { "max-width": "600px", persistent: "" },
+          model: {
+            value: _vm.stockDialog,
+            callback: function($$v) {
+              _vm.stockDialog = $$v
+            },
+            expression: "stockDialog"
+          }
+        },
+        [
+          _c(
+            "v-card",
+            [
+              _c("v-card-title", [
+                _c("span", { staticClass: "text-h5" }, [
+                  _vm._v("UPDATE INVENTORY")
+                ])
+              ]),
+              _vm._v(" "),
+              _c(
+                "v-card-text",
+                [
+                  _c(
+                    "v-container",
+                    [
+                      _c(
+                        "v-row",
+                        [
+                          _c(
+                            "v-col",
+                            { attrs: { cols: "12" } },
+                            [
+                              _c("v-text-field", {
+                                attrs: {
+                                  "error-messages": _vm.stockForm.errors.get(
+                                    "quantity"
+                                  ),
+                                  hint:
+                                    "Add '-' or negative value to deduct from stocks.",
+                                  label: "Quantity",
+                                  "persistent-hint": "",
+                                  type: "number"
+                                },
+                                model: {
+                                  value: _vm.stockForm.quantity,
+                                  callback: function($$v) {
+                                    _vm.$set(_vm.stockForm, "quantity", $$v)
+                                  },
+                                  expression: "stockForm.quantity"
+                                }
+                              })
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "v-card-actions",
+                [
+                  _c("v-spacer"),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: {
+                        click: function($event) {
+                          _vm.stockDialog = false
+                        }
+                      }
+                    },
+                    [_vm._v("\n                    Close\n                ")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
+                      attrs: { color: "blue darken-1", text: "" },
+                      on: { click: _vm.saveStock }
+                    },
+                    [_vm._v("\n                    Save\n                ")]
+                  )
+                ],
+                1
+              )
+            ],
+            1
+          )
+        ],
+        1
+      ),
+      _vm._v(" "),
+      _c(
+        "v-dialog",
+        {
+          attrs: { "max-width": "600px", persistent: "" },
           model: {
             value: _vm.dialog,
             callback: function($$v) {
@@ -32027,9 +32235,9 @@ var render = function() {
                                     "price"
                                   ),
                                   label: "Price*",
+                                  required: "",
                                   step: "0.01",
-                                  type: "number",
-                                  required: ""
+                                  type: "number"
                                 },
                                 model: {
                                   value: _vm.form.price,
@@ -32052,9 +32260,9 @@ var render = function() {
                                   "error-messages": _vm.form.errors.get(
                                     "ingredients"
                                   ),
-                                  outlined: "",
+                                  label: "Ingredients",
                                   name: "input-7-4",
-                                  label: "Ingredients"
+                                  outlined: ""
                                 },
                                 model: {
                                   value: _vm.form.ingredients,
@@ -32094,7 +32302,7 @@ var render = function() {
                         }
                       }
                     },
-                    [_vm._v("\n          Close\n        ")]
+                    [_vm._v("\n                    Close\n                ")]
                   ),
                   _vm._v(" "),
                   _c(
@@ -32103,7 +32311,7 @@ var render = function() {
                       attrs: { color: "blue darken-1", text: "" },
                       on: { click: _vm.handleSave }
                     },
-                    [_vm._v(" Save ")]
+                    [_vm._v(" Save")]
                   )
                 ],
                 1

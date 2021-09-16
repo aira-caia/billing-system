@@ -20,7 +20,7 @@ const routes = [
             middlewares: [middlewares.guest]
         }
     },
-    { path: "*", component: NotFound },
+    // { path: "*", component: NotFound },
     {
         path: '/menu',
         component: Menu,
