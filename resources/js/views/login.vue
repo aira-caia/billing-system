@@ -7,8 +7,10 @@
             </div>
             <img :src="sally" alt="Girl With Phone"/>
         </div>
-        <div class="rightPanel">
+        <div class="rightPanel" style="position: relative">
             <div class="signInBox">
+                <v-btn @click="$router.push({name: 'about'})" style="position: absolute; top: -45px; left: 40px">About</v-btn>
+                <v-btn color="#ab97f3" dark style="position: absolute; top: -45px; left: 150px">Download <v-icon>mdi-download</v-icon></v-btn>
                 <img class="handIcon" :src="sally8" alt="Hand"/>
                 <img class="phoneIcon" :src="sally12" alt="Hand"/>
                 <div class="title">
