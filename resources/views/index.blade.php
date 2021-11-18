@@ -18,14 +18,14 @@
     <link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
     <div id="app">
         <app></app>
     </div>
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 </body>
 
