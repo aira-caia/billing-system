@@ -34,9 +34,10 @@ import Welcome from "./base/welcome.vue";
 import iconDelicious from "../assets/icons/iconDelicious.svg";
 import handIcon from "../assets/icons/Saly-25.svg";
 import axios from "axios";
+import Notification from "./Notification";
 
 export default {
-    components: {Menus, categories, Sidebar, Welcome},
+    components: {Notification, Menus, categories, Sidebar, Welcome},
     data: () => ({
         iconDelicious,
         handIcon,

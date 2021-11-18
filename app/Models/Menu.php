@@ -12,11 +12,11 @@ class Menu extends Model
     use HasFactory;
     protected $fillable = ['title', 'price', 'ingredients', 'image_path', 'category_id','quantity'];
     protected $hidden = ['created_at', 'updated_at'];
-
+/*
     public function getImagePathAttribute($value)
     {
         return env("APP_URL") . Storage::url("images/menu/" . $value);
-    }
+    }*/
 
     public function purchases()
     {

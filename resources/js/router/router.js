@@ -8,6 +8,7 @@ import profile from "../views/profile.vue"
 import Transaction from "../views/Transaction.vue"
 import middlewares from "../middlewares/index"
 import NotFound from "../views/404.vue";
+import PrintSales from "../views/reports/PrintSales";
 Vue.use(VueRouter)
 
 // Based on what is typed, in our search/url bar, we are redirected on that page
@@ -41,6 +42,30 @@ const routes = [
         path: '/reports',
         component: Reports,
         name: "reports",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/sales',
+        component: PrintSales,
+        name: "sales",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/interactions',
+        component: PrintSales,
+        name: "interactions",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/purchases',
+        component: PrintSales,
+        name: "purchases",
         meta: {
             middlewares: [middlewares.auth]
         }

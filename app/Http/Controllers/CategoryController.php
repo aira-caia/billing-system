@@ -6,6 +6,7 @@ use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Kreait\Firebase\Factory;
 
 class CategoryController extends Controller
 {
@@ -45,8 +46,14 @@ class CategoryController extends Controller
         //Store the image
         $image = $request->file('image');
         $imageName = time() . "." . $image->getClientOriginalExtension();
-        $image->storeAs("/public/images/categories", $imageName);
-        $validated['image_path'] = $imageName;
+
+        $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+        $bucket = $factory->createStorage()->getBucket();
+        $path = $bucket->upload(file_get_contents($image),['name' => 'categories/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+
+
+//        $image->storeAs("/public/images/categories", $imageName);
+        $validated['image_path'] = $path;
         Category::create($validated);
 
         return response([

@@ -26,6 +26,12 @@ export default {
     margin: 70px 25vw 0 344px;
   }
 }
+
+@media print {
+    .hideOnPrint {
+        display: none;
+    }
+}
 * {
   padding: 0;
   margin: 0;
@@ -35,5 +41,11 @@ export default {
 }
 .miniContainer {
   margin: 75px 0;
+}
+
+.alertBox {
+    position: fixed;
+    right: 100px;
+    z-index: 99;
 }
 </style>

@@ -7,9 +7,17 @@ use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
+use Kreait\Firebase\Factory;
 
 class MenuController extends Controller
 {
+
+    public function notify()
+    {
+        $menus = Menu::where('quantity',"<", 21)->get();
+        return response($menus);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -56,13 +64,22 @@ class MenuController extends Controller
             'category_id' => 'required|numeric|exists:categories,id'
         ]);
 
+
+
+
         $image = $request->file('image');
-        $image_real = $request->file('image_real');
+//        $image_real = $request->file('image_real');
         $imageName = time() . "." . $image->getClientOriginalExtension();
-        $image->storeAs("/public/images", $imageName);
-        $image_real->storeAs("/public/images/menu", $imageName);
-        $validated['image_path'] = $imageName;
+
+        $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+        $bucket = $factory->createStorage()->getBucket();
+        $path = $bucket->upload(file_get_contents($request->file('image_real')),['name' => 'menu/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+
+//        $image->storeAs("/public/images", $imageName);
+//        $image_real->storeAs("/public/images/menu", $imageName);
+        $validated['image_path'] = $path;
         Menu::create($validated);
+
 
         return response([
             'message' => "New menu has been created."

@@ -1,68 +1,69 @@
 <template>
-  <div id="main">
-    <sidebar />
-    <div class="myContainer">
-      <welcome title="Welcome to Dashboard" :src="iconBlush" />
-      <img :src="manIcon" class="manIcon" alt="manIcon" />
-      <img :src="welcomeIcon" class="welcomeIcon" alt="" />
-      <div class="miniContainer">
-        <div class="cardRow">
-          <!--    <div class="myCardSmall">
-            <h3>Food served</h3>
-            <img :src="iconPot" class="iconPot" alt="icon_pot" />
-            <div class="total">
-              <strong>Total</strong> <br />
-              <span>{{ payload["serve"] }}</span>
-            </div>
-          </div> -->
-          <router-link
-            style="cursor: pointer"
-            to="/reports#monthlyPurchase"
-            tag="div"
-            class="myCardSmall cardStretch"
-          >
-            <h3>Sold</h3>
-            <img :src="iconCart" class="iconPot" alt="icon_pot" />
-            <div class="total">
-              <strong>Total</strong> <br />
-              <span>{{ payload["serve"] }}</span>
-            </div>
-          </router-link>
-        </div>
-        <div class="cardRow">
-          <router-link
-            style="cursor: pointer"
-            to="/reports#monthlySales"
-            tag="div"
-            class="myCardMedium"
-          >
-            <h3>Revenue</h3>
-            <img :src="iconCoins" class="iconMed" alt="icon_pot" />
-            <div class="total">
-              <strong>Total</strong> <br />
-              <span
-                ><v-icon>mdi-currency-php</v-icon>
+    <div id="main">
+        <Notification/>
+        <sidebar/>
+        <div class="myContainer">
+            <welcome title="Welcome to Dashboard" :src="iconBlush"/>
+            <img :src="manIcon" class="manIcon" alt="manIcon"/>
+            <img :src="welcomeIcon" class="welcomeIcon" alt=""/>
+            <div class="miniContainer">
+                <div class="cardRow">
+                    <!--    <div class="myCardSmall">
+                      <h3>Food served</h3>
+                      <img :src="iconPot" class="iconPot" alt="icon_pot" />
+                      <div class="total">
+                        <strong>Total</strong> <br />
+                        <span>{{ payload["serve"] }}</span>
+                      </div>
+                    </div> -->
+                    <router-link
+                        style="cursor: pointer"
+                        to="/reports#monthlyPurchase"
+                        tag="div"
+                        class="myCardSmall cardStretch"
+                    >
+                        <h3>Sold</h3>
+                        <img :src="iconCart" class="iconPot" alt="icon_pot"/>
+                        <div class="total">
+                            <strong>Total</strong> <br/>
+                            <span>{{ payload["serve"] }}</span>
+                        </div>
+                    </router-link>
+                </div>
+                <div class="cardRow">
+                    <router-link
+                        style="cursor: pointer"
+                        to="/reports#monthlySales"
+                        tag="div"
+                        class="myCardMedium"
+                    >
+                        <h3>Revenue</h3>
+                        <img :src="iconCoins" class="iconMed" alt="icon_pot"/>
+                        <div class="total">
+                            <strong>Total</strong> <br/>
+                            <span
+                            ><v-icon>mdi-currency-php</v-icon>
                 {{ payload["revenue"] }}</span
-              >
+                            >
+                        </div>
+                    </router-link>
+                    <router-link
+                        class="myCardMedium"
+                        style="cursor: pointer"
+                        to="/transaction"
+                        tag="div"
+                    >
+                        <h3>Transactions</h3>
+                        <img :src="iconCashier" class="iconMed" alt="icon_pot"/>
+                        <div class="total">
+                            <strong>Total</strong> <br/>
+                            <span>{{ payload["transactions"] }}</span>
+                        </div>
+                    </router-link>
+                </div>
             </div>
-          </router-link>
-          <router-link
-            class="myCardMedium"
-            style="cursor: pointer"
-            to="/transaction"
-            tag="div"
-          >
-            <h3>Transactions</h3>
-            <img :src="iconCashier" class="iconMed" alt="icon_pot" />
-            <div class="total">
-              <strong>Total</strong> <br />
-              <span>{{ payload["transactions"] }}</span>
-            </div>
-          </router-link>
         </div>
-      </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -79,89 +80,99 @@ import iconCashier from "../assets/icons/iconCashier.svg";
 import manIcon from "../assets/icons/Saly-11.svg";
 import axios from "axios";
 import token from "../dev/token";
+import Notification from "./Notification";
 
 export default {
-  components: { menus, categories, Sidebar, Welcome },
-  data: () => ({
-    iconBlush,
-    welcomeIcon,
-    iconPot,
-    iconCart,
-    iconCoins,
-    iconCashier,
-    manIcon,
-    payload: {},
-  }),
-  created() {
-    axios.get("/api/home", token()).then((r) => {
-      this.payload = r.data;
-    });
-  },
+    components: {Notification, menus, categories, Sidebar, Welcome},
+    data: () => ({
+        iconBlush,
+        welcomeIcon,
+        iconPot,
+        iconCart,
+        iconCoins,
+        iconCashier,
+        manIcon,
+        payload: {},
+    }),
+    created() {
+        axios.get("/api/home", token()).then((r) => {
+            this.payload = r.data;
+        });
+    },
 };
 </script>
 
 <style scoped>
 * {
-  font-family: "Bergen Sans", sans-serif;
-  color: #353853;
+    font-family: "Bergen Sans", sans-serif;
+    color: #353853;
 }
 
 .welcomeIcon {
-  position: absolute;
-  top: -50px;
-  right: 0;
-  width: 204px;
+    position: absolute;
+    top: -50px;
+    right: 0;
+    width: 204px;
 }
+
 .manIcon {
-  position: absolute;
-  bottom: -200px;
-  right: -120px;
-  width: 320px;
+    position: absolute;
+    bottom: -200px;
+    right: -120px;
+    width: 320px;
 }
+
 .cardRow {
-  display: flex;
-  margin: 25px 0;
+    display: flex;
+    margin: 25px 0;
 }
+
 .myCardSmall {
-  background: #fff;
-  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  height: 135px;
-  width: 357px;
-  position: relative;
-  padding: 25px 35px;
-  margin-right: 40px;
+    background: #fff;
+    box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    height: 135px;
+    width: 357px;
+    position: relative;
+    padding: 25px 35px;
+    margin-right: 40px;
 }
+
 .cardStretch {
-  width: 100%;
-  max-width: 754px;
-  min-width: 255px;
+    width: 100%;
+    max-width: 754px;
+    min-width: 255px;
 }
+
 .myCardMedium {
-  background: #fff;
-  box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);
-  border-radius: 20px;
-  height: 290px;
-  width: 357px;
-  position: relative;
-  padding: 25px 35px;
-  margin-right: 40px;
+    background: #fff;
+    box-shadow: 0 0 26px 2px rgba(0, 0, 0, 0.08);
+    border-radius: 20px;
+    height: 290px;
+    width: 357px;
+    position: relative;
+    padding: 25px 35px;
+    margin-right: 40px;
 }
+
 .myCardMedium .iconMed {
-  position: absolute;
-  bottom: 10px;
-  right: 30px;
+    position: absolute;
+    bottom: 10px;
+    right: 30px;
 }
+
 .myCardSmall .iconPot {
-  width: 92px;
-  position: absolute;
-  right: 30px;
-  top: 15px;
+    width: 92px;
+    position: absolute;
+    right: 30px;
+    top: 15px;
 }
+
 .total {
-  margin-top: 15px;
+    margin-top: 15px;
 }
+
 .total strong {
-  color: #9598a9;
+    color: #9598a9;
 }
 </style>

@@ -24,7 +24,8 @@ Route::get("receipt/v2/{q}", [PaymentController::class, "receiptWeb"]);
 Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('index','show');
 Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('index');
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-
+Route::resource('company',\App\Http\Controllers\CompanyInfoController::class);
+Route::get('notify', [\App\Http\Controllers\MenuController::class, 'notify']);
 Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('store', 'update', 'destroy');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('store', 'destroy');

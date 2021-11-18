@@ -7,6 +7,14 @@
             <!-- <img :src="welcomeIcon" class="welcomeIcon" alt="" /> -->
             <div class="mt-10">
                 <div class="myInputGroup">
+                    <h3>Company Information</h3>
+                    <v-text-field v-model="form.company_name" :error-messages="form.errors.get('company_name')" label="Name"></v-text-field>
+                    <v-text-field v-model="form.slogan" :error-messages="form.errors.get('slogan')" label="Slogan"></v-text-field>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="mt-5">
+                <div class="myInputGroup">
                     <h3>User Credential</h3>
                     <v-text-field v-model="form.username" :error-messages="form.errors.get('username')" label="Your username"></v-text-field>
                 </div>
@@ -42,6 +50,8 @@ export default {
         form: new Form({
             username: "",
             password: "",
+            company_name: "",
+            slogan: "",
             password_confirmation: "",
             id: 0
         })
@@ -51,6 +61,11 @@ export default {
             this.form.username = r.data.username
             this.form.id = r.data.id
         });
+
+        axios.get("/api/company", token()).then(r => {
+            this.form.company_name = r.data.company_name
+            this.form.slogan = r.data.slogan
+        });
     },
     methods: {
         submit() {
@@ -58,7 +73,9 @@ export default {
             axios.patch(`/api/user/${this.form.id}`, {
                 username: this.form.username,
                 password: this.form.password,
-                password_confirmation: this.form.password_confirmation
+                password_confirmation: this.form.password_confirmation,
+                company_name: this.form.company_name,
+                slogan: this.form.slogan,
             }, token()).then(r => {
                 Swal.fire({
                     icon: 'success',

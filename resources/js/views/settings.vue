@@ -1,5 +1,6 @@
 <template>
     <div id="main">
+        <Notification />
         <add-menu :category="category" v-if="addMenuDialog" :reloadMenus="getMenus" :setMenuDialog="setMenuDialog" />
         <sidebar/>
         <div class="myContainer">
@@ -36,10 +37,12 @@ import iconLol from "../assets/icons/iconLol.svg";
 import AddMenu from "./base/addMenu.vue";
 import axios from "axios";
 import handIcon from "../assets/icons/Saly-25.svg";
+import Notification from "./Notification";
 
 
 export default {
     components: {
+        Notification,
         sidebar,
         welcome,
         Categories,

@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Payment;
 use App\Models\Purchase;
 use App\Models\User;
+use App\Models\CompanyInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Kreait\Firebase\Factory;
 
 class AuthController extends Controller
 {
@@ -29,6 +31,7 @@ class AuthController extends Controller
             'username' => ['required', 'string',],
             'password' => ['required', 'string']
         ]);
+
 
         $validated = $validator->validated();
         if ($validator->fails()) {
@@ -76,13 +79,17 @@ class AuthController extends Controller
         //We call this method when we update our user
         $validated = $request->validate([
             'username' => 'required|string',
-            'password' => 'nullable|string|confirmed'
+            'password' => 'nullable|string|confirmed',
+            'company_name' => 'required|string',
+            'slogan' => 'required|string'
         ]);
         if (!$validated['password']) {
             unset($validated['password']);
         } else {
             $validated['password'] = Hash::make($validated['password']);
         }
+
+        CompanyInfo::find(1)->update($validated);
 
         $user->update($validated);
         return response(['message' => "OK"]);

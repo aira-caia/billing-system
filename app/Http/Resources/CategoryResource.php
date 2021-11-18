@@ -21,7 +21,8 @@ class CategoryResource extends JsonResource
         return [
             "value" => $this->id,
             "title" => $this->title,
-            "icon" => env("APP_URL") . Storage::url("images/categories/" . $this->image_path),
+//            "icon" => env("APP_URL") . Storage::url("images/categories/" . $this->image_path),
+            "icon" => $this->image_path,
             "active" => false
         ];
     }

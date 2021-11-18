@@ -2,8 +2,8 @@
     <div class="d-flex">
         <div class="leftPanel">
             <div class="title">
-                <h3 class="logo">caia.</h3>
-                <sub>An application that will satisfy your taste!</sub>
+                <h3 class="logo">{{company_name}}</h3>
+                <sub>{{slogan}}</sub>
             </div>
             <img :src="sally" alt="Girl With Phone"/>
         </div>
@@ -46,6 +46,7 @@ import sally from "../assets/icons/Saly-14.svg";
 import sally8 from "../assets/icons/Saly-8.svg";
 import sally12 from "../assets/icons/Saly-12.svg";
 import Form from "../plugins/Form";
+import axios from 'axios'
 
 export default {
     name: "Login",
@@ -57,7 +58,16 @@ export default {
             username: "",
             password: "",
         }),
+        company_name: '',
+        slogan: ''
     }),
+    created() {
+        axios.get("/api/company").then(res => {
+            this.company_name = res.data.company_name
+            this.slogan = res.data.slogan
+            console.log(res)
+        })
+    },
     methods: {
         async submit() {
             await this.form

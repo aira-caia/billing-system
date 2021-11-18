@@ -79,6 +79,7 @@
                     </v-btn>
                     <v-btn
                         color="blue darken-1"
+                        :loading="loading"
                         text
                         @click="saveStock"
                     >
@@ -132,7 +133,7 @@
                     <v-btn color="blue darken-1" text @click="dialog = false">
                         Close
                     </v-btn>
-                    <v-btn color="blue darken-1" text @click="handleSave"> Save</v-btn>
+                    <v-btn :loading="loading" color="blue darken-1" text @click="handleSave"> Save</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -157,6 +158,7 @@ export default {
     data: () => ({
         rows: 0,
         stockDialog: false,
+        loading: false,
         dialog: false,
         form: new Form({
             title: "",
@@ -176,6 +178,7 @@ export default {
         },
         saveStock() {
             this.stockForm.errors.clear()
+            this.loading = true;
             this.stockForm.put('/api/inventory')
                 .then(res => {
                     Swal.fire({
@@ -185,12 +188,15 @@ export default {
                         showConfirmButton: false,
                         icon: "success",
                     });
-                    location.reload()
                     this.stockDialog = false;
+                    location.reload()
                 })
                 .catch(err => {
                     this.stockForm.errors.set(err.errors);
                 })
+            .finally(() => {
+                this.loading = false;
+            })
         },
         handleEditDialog(menu) {
             this.form.title = menu.title;

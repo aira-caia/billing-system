@@ -3,6 +3,11 @@
     <div class="card-header border-0">
       <div class="d-flex justify-content-center">
         <h3 class="card-title">Monthly/Yearly Purchase Report</h3>
+          <v-btn
+              v-if="$route.name === 'reports'"
+              class="hideOnPrint" @click="$router.push({name: 'purchases'})" color="primary" small style="position: absolute; right: 10px">
+              print
+          </v-btn>
       </div>
     </div>
 
