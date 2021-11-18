@@ -37,7 +37,7 @@
                     <h2 class="display-5">Web Application</h2>
                     <p class="lead">The Maintenance of the application.</p>
                 </div>
-                <div class="box-shadow mx-auto overflow-hidden" :style="{'background-image': 'url('+web+')'}"
+                <div class="box-shadow mx-auto overflow-hidden reveal1" :style="{'background-image': 'url('+web+')'}"
                      style="width: 80%; height: 300px; border-radius: 21px 21px 0 0; background-size: cover; background-position: left center;">
                     <!--                    <img :src="web" style="background-size: cover; background-position: center; width: auto; height: 100%" alt="">-->
                 </div>
@@ -47,7 +47,7 @@
                     <h2 class="display-5">Android Application</h2>
                     <p class="lead">The device that interacts with customers.</p>
                 </div>
-                <div class="bg-dark box-shadow mx-auto overflow-hidden" :style="{'background-image': 'url('+web+')'}"
+                <div class="bg-dark box-shadow mx-auto overflow-hidden reveal1" :style="{'background-image': 'url('+web+')'}"
                      style="width: 80%; height: 300px; border-radius: 21px 21px 0 0; background-size: cover; background-position: left center;">
                 </div>
             </div>
@@ -70,7 +70,7 @@
             </div>
             <div class="col-sm-5 pa-5">
                 <img
-                    class="border-bottom border-warning rounded-lg elevation-2"
+                    class="border-bottom border-warning rounded-lg elevation-2 reveal2"
                     :src="web" style="background-size: cover; background-position: center; width: auto; height: 550px"
                     alt="">
             </div>
@@ -80,7 +80,7 @@
         <v-card flat min-height="450px" class="row d-flex align-center pa-8">
             <div class="col-sm-5 pa-5">
                 <img
-                    class="border-bottom border-warning rounded-lg elevation-2 leftImage"
+                    class="border-bottom border-warning rounded-lg elevation-2 leftImage reveal3"
                     :src="web"
                     alt="">
             </div>
@@ -114,7 +114,7 @@
                     </p>
                 </div>
                 <div class="col-md-5">
-                    <div class="rounded-lg elevation-2" style="height: 500px; width: 500px; overflow: hidden">
+                    <div class="reveal2 rounded-lg elevation-2" style="height: 500px; width: 500px; overflow: hidden">
                         <img style="height: 100%; width: auto; background-size: contain; background-position: center"
                              :src="web">
                     </div>
@@ -135,7 +135,7 @@
 
         <div class="container" id="ourTeam">
             <div class="row">
-                <div class="col-sm-3">
+                <div class="col-sm-3 reveal4">
                     <v-img
                         src="https://joeschmoe.io/api/v1/female/ivy"
                         :lazy-src="`https://joeschmoe.io/api/v1/random`"
@@ -146,7 +146,7 @@
                     <h5>Ivy Recinte</h5>
                     <p class="text-muted">Analyst</p>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 reveal4">
                     <v-img
                         src="https://joeschmoe.io/api/v1/female/Aira"
                         :lazy-src="`https://joeschmoe.io/api/v1/random`"
@@ -157,7 +157,7 @@
                     <h5>Michaela Aira Salenga</h5>
                     <p class="text-muted">Programmer</p>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 reveal4">
                     <v-img
                         src="https://joeschmoe.io/api/v1/male/ace"
                         :lazy-src="`https://joeschmoe.io/api/v1/random`"
@@ -168,7 +168,7 @@
                     <h5>Ace Sangalang</h5>
                     <p class="text-muted">Tester & Documentation</p>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-sm-3 reveal4">
                     <v-img
                         src="https://joeschmoe.io/api/v1/female/cathlyn"
                         :lazy-src="`https://joeschmoe.io/api/v1/random`"
@@ -229,12 +229,25 @@ export default {
     name: "About",
     data: () => ({
         web,
-    })
+    }),
+    mounted() {
+        ScrollReveal({duration: 1500, reset: false})
+        ScrollReveal().reveal('.reveal1', {delay: 500, interval: 700, distance: '100px'});
+        ScrollReveal().reveal('.reveal2', {delay: 500, interval: 700, distance: '200px', origin: 'right'});
+        ScrollReveal().reveal('.reveal3', {delay: 500, interval: 700, distance: '200px', origin: 'left'});
+        ScrollReveal().reveal('.reveal4', {delay: 500, interval: 700, distance: '200px', origin: 'top'});
+    }
 }
 </script>
 
 <style>
-
+body {
+    overflow-x: hidden;
+}
+.reveal1,.reveal2,.reveal3 {
+    /*opacity: 0;*/
+    visibility: hidden;
+}
 </style>
 
 <style scoped>

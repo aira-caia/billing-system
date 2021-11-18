@@ -25,8 +25,10 @@
     <div id="app">
         <app></app>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+
+    <script src="https://unpkg.com/scrollreveal"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+    <script src="{{ asset('js/app.js') }}"></script>
 </body>
 
 </html>
