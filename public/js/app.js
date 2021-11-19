@@ -1906,6 +1906,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_web_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/web.png */ "./resources/js/assets/web.png");
 /* harmony import */ var _assets_chart2_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/chart2.png */ "./resources/js/assets/chart2.png");
 /* harmony import */ var _assets_chart_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/chart.png */ "./resources/js/assets/chart.png");
+/* harmony import */ var _assets_Welcome_png__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../assets/Welcome.png */ "./resources/js/assets/Welcome.png");
+/* harmony import */ var _assets_Android_png__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../assets/Android.png */ "./resources/js/assets/Android.png");
 //
 //
 //
@@ -2130,6 +2132,74 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
 
 
 
@@ -2139,36 +2209,46 @@ __webpack_require__.r(__webpack_exports__);
     return {
       web: _assets_web_png__WEBPACK_IMPORTED_MODULE_0__.default,
       chartImg: _assets_chart2_png__WEBPACK_IMPORTED_MODULE_1__.default,
-      chartImg2: _assets_chart_png__WEBPACK_IMPORTED_MODULE_2__.default
+      chartImg2: _assets_chart_png__WEBPACK_IMPORTED_MODULE_2__.default,
+      welcomeImg: _assets_Welcome_png__WEBPACK_IMPORTED_MODULE_3__.default,
+      androidImg: _assets_Android_png__WEBPACK_IMPORTED_MODULE_4__.default
     };
+  },
+  methods: {
+    goToTwitter: function goToTwitter() {
+      location.replace("https://www.twitter.com/restauowner");
+    },
+    goToFacebook: function goToFacebook() {
+      location.replace("https://www.facebook.com/restauowner");
+    }
   },
   mounted: function mounted() {
     ScrollReveal({
       duration: 1500,
       reset: false
     });
-    ScrollReveal().reveal('.reveal1', {
+    ScrollReveal().reveal(".reveal3", {
       delay: 500,
       interval: 700,
-      distance: '100px'
+      distance: "200px",
+      origin: "left"
     });
-    ScrollReveal().reveal('.reveal2', {
+    ScrollReveal().reveal(".reveal1", {
       delay: 500,
       interval: 700,
-      distance: '200px',
-      origin: 'right'
+      distance: "100px"
     });
-    ScrollReveal().reveal('.reveal3', {
+    ScrollReveal().reveal(".reveal2", {
       delay: 500,
       interval: 700,
-      distance: '200px',
-      origin: 'left'
+      distance: "200px",
+      origin: "right"
     });
-    ScrollReveal().reveal('.reveal4', {
+    ScrollReveal().reveal(".reveal4", {
       delay: 500,
       interval: 700,
-      distance: '200px',
-      origin: 'top'
+      distance: "200px",
+      origin: "top"
     });
   }
 });
@@ -14364,7 +14444,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\n    overflow-x: hidden;\n}\n.reveal1,.reveal2,.reveal3,.reveal4 {\n    /*opacity: 0;*/\n    visibility: hidden;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nhtml {\n  scroll-behavior: smooth;\n}\nbody {\n  overflow-x: hidden;\n}\n.reveal1,\n.reveal2,\n.reveal3,\n.reveal4 {\n  /*opacity: 0;*/\n  visibility: hidden;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14388,7 +14468,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nul[data-v-2995bb7e] {\n    padding-left: 0;\n}\n#ourTeam h5[data-v-2995bb7e]{\n    margin-bottom: 0;\n    margin-top: .6rem;\n    font-size: 1rem;\n}\n#ourTeam p[data-v-2995bb7e] {\n    font-size: .8rem;\n}\n.leftImage[data-v-2995bb7e] {\n    background-size: cover;\n    background-position: center;\n    width: auto;\n    height: 550px;\n    position: relative;\n    left: -120vw;\n}\n@media screen and (max-width: 494px) {\n.leftImage[data-v-2995bb7e] {\n        left: -127vw;\n}\n}\n@media screen and (min-width: 578px) {\n.leftImage[data-v-2995bb7e] {\n        left: -150vw;\n}\n}\n@media screen and (min-width: 650px) {\n.leftImage[data-v-2995bb7e] {\n        left: -130vw;\n}\n}\n@media screen and (min-width: 720px) {\n.leftImage[data-v-2995bb7e] {\n        left: -120vw;\n}\n}\n@media screen and (min-width: 728px) {\n.leftImage[data-v-2995bb7e] {\n        left: -110vw;\n}\n}\n@media screen and (min-width: 828px) {\n.leftImage[data-v-2995bb7e] {\n        left: -90vw;\n}\n}\n@media screen and (min-width: 1094px) {\n.leftImage[data-v-2995bb7e] {\n        left: -650px;\n}\n}\n@media screen and (min-width: 1410px) {\n.leftImage[data-v-2995bb7e] {\n        left: -500px;\n}\n}\n@media screen and (max-width: 565px) {\n#ourTeam .row[data-v-2995bb7e] {\n        display: grid;\n        grid-template-columns: repeat(2, 1fr);\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\na[data-v-2995bb7e] {\n  text-decoration: none;\n}\nul[data-v-2995bb7e] {\n  padding-left: 0;\n}\n#ourTeam h5[data-v-2995bb7e] {\n  margin-bottom: 0;\n  margin-top: 0.6rem;\n  font-size: 1rem;\n}\n#ourTeam p[data-v-2995bb7e] {\n  font-size: 0.8rem;\n}\n.leftImage[data-v-2995bb7e] {\n  background-size: cover;\n  background-position: center;\n  width: auto;\n  height: 550px;\n  position: relative;\n  left: -120vw;\n}\n@media screen and (max-width: 494px) {\n.leftImage[data-v-2995bb7e] {\n    left: -127vw;\n}\n}\n@media screen and (min-width: 578px) {\n.leftImage[data-v-2995bb7e] {\n    left: -150vw;\n}\n}\n@media screen and (min-width: 650px) {\n.leftImage[data-v-2995bb7e] {\n    left: -130vw;\n}\n}\n@media screen and (min-width: 720px) {\n.leftImage[data-v-2995bb7e] {\n    left: -120vw;\n}\n}\n@media screen and (min-width: 728px) {\n.leftImage[data-v-2995bb7e] {\n    left: -110vw;\n}\n}\n@media screen and (min-width: 828px) {\n.leftImage[data-v-2995bb7e] {\n    left: -90vw;\n}\n}\n@media screen and (min-width: 1094px) {\n.leftImage[data-v-2995bb7e] {\n    left: -650px;\n}\n}\n@media screen and (min-width: 1410px) {\n.leftImage[data-v-2995bb7e] {\n    left: -500px;\n}\n}\n@media screen and (max-width: 565px) {\n#ourTeam .row[data-v-2995bb7e] {\n    display: grid;\n    grid-template-columns: repeat(2, 1fr);\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14819,6 +14899,36 @@ module.exports = function (url, options) {
 
   return url;
 };
+
+/***/ }),
+
+/***/ "./resources/js/assets/Android.png":
+/*!*****************************************!*\
+  !*** ./resources/js/assets/Android.png ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Android.png?268f6e2ccb147ecb796deb657eb3a21c");
+
+/***/ }),
+
+/***/ "./resources/js/assets/Welcome.png":
+/*!*****************************************!*\
+  !*** ./resources/js/assets/Welcome.png ***!
+  \*****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/Welcome.png?0765d7e7f08e385a04a8040a4990765f");
 
 /***/ }),
 
@@ -32249,7 +32359,7 @@ var render = function() {
         "nav",
         {
           staticClass:
-            "navbar navbar-expand-lg navbar-dark bg-dark sticky-top d-flex justify-content-end py-4"
+            "\n      navbar navbar-expand-lg navbar-dark\n      bg-dark\n      sticky-top\n      d-flex\n      justify-content-end\n      py-4\n    "
         },
         [
           _c("div", { attrs: { id: "navbarNav" } }, [
@@ -32285,7 +32395,7 @@ var render = function() {
                       attrs: { color: "#ab97f3", dark: "" }
                     },
                     [
-                      _vm._v("Download\n                        "),
+                      _vm._v("Download\n            "),
                       _c("v-icon", [_vm._v("mdi-download")])
                     ],
                     1
@@ -32302,20 +32412,20 @@ var render = function() {
         "v-card",
         {
           staticClass:
-            "position-relative overflow-hidden text-center bg-light d-flex flex-column justify-center",
+            "\n      position-relative\n      overflow-hidden\n      text-center\n      bg-light\n      d-flex\n      flex-column\n      justify-center\n    ",
           attrs: { flat: "", "min-height": "470px" }
         },
         [
           _c("div", { staticClass: "col-md-7 p-lg-5 mx-auto" }, [
             _c("h1", { staticClass: "display-1 font-weight-normal" }, [
               _vm._v(
-                "\n                ANDROID BASED ORDERING AND BILLING SYSTEM WITH QR CODE\n            "
+                "\n        ANDROID BASED ORDERING AND BILLING SYSTEM WITH QR CODE\n      "
               )
             ]),
             _vm._v(" "),
             _c("p", { staticClass: "lead font-weight-normal" }, [
               _vm._v(
-                "\n                A web and Android application that enables trouble-free transactions between consumers and\n                restaurant owners.\n            "
+                "\n        A web and Android application that enables trouble-free transactions\n        between consumers and restaurant owners.\n      "
               )
             ]),
             _vm._v(" "),
@@ -32345,7 +32455,7 @@ var render = function() {
           "div",
           {
             staticClass:
-              " col-sm-6 bg-dark text-center text-white overflow-hidden"
+              "col-sm-6 bg-dark text-center text-white overflow-hidden"
           },
           [
             _c("div", { staticClass: "my-3 py-3" }, [
@@ -32372,7 +32482,7 @@ var render = function() {
           ]
         ),
         _vm._v(" "),
-        _c("div", { staticClass: "col-sm-6  text-center overflow-hidden" }, [
+        _c("div", { staticClass: "col-sm-6 text-center overflow-hidden" }, [
           _c("div", { staticClass: "my-3 py-3" }, [
             _c("h2", { staticClass: "display-5" }, [
               _vm._v("Android Application")
@@ -32390,9 +32500,9 @@ var render = function() {
               height: "300px",
               "border-radius": "21px 21px 0 0",
               "background-size": "cover",
-              "background-position": "left center"
+              "background-position": "center"
             },
-            style: { "background-image": "url(" + _vm.web + ")" }
+            style: { "background-image": "url(" + _vm.androidImg + ")" }
           })
         ])
       ]),
@@ -32416,16 +32526,16 @@ var render = function() {
               _vm._v(" "),
               _c("p", { staticStyle: { "font-size": "1.2rem" } }, [
                 _vm._v(
-                  "\n                The goal of this project is to offer the food industry a food ordering system using a tablet and a\n                billing system using QR codes to solve the high chance of human error when a restaurant's workers\n                negotiate with a huge number of customers in the conventional manner.\n            "
+                  "\n        The goal of this project is to offer the food industry a food ordering\n        system using a tablet and a billing system using QR codes to solve the\n        high chance of human error when a restaurant's workers negotiate with\n        a huge number of customers in the conventional manner.\n      "
                 )
               ]),
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { large: "", color: "primary" } },
+                { attrs: { large: "", href: "#footer", color: "primary" } },
                 [
                   _c("v-icon", { attrs: { left: "" } }, [_vm._v("mdi-phone")]),
-                  _vm._v("\n                Contact us\n            ")
+                  _vm._v("\n        Contact us\n      ")
                 ],
                 1
               )
@@ -32443,7 +32553,7 @@ var render = function() {
                 width: "auto",
                 height: "550px"
               },
-              attrs: { src: _vm.chartImg2, alt: "" }
+              attrs: { src: _vm.chartImg, alt: "" }
             })
           ])
         ]
@@ -32456,10 +32566,10 @@ var render = function() {
           attrs: { flat: "", "min-height": "450px" }
         },
         [
-          _c("div", { staticClass: "col-sm-5 pa-5" }, [
+          _c("div", { staticClass: "col-sm-5 pa-5 reveal3" }, [
             _c("img", {
               staticClass:
-                "border-bottom border-warning rounded-lg elevation-2 leftImage reveal3",
+                "border-bottom border-warning rounded-lg elevation-2 leftImage",
               attrs: { src: _vm.web, alt: "" }
             })
           ]),
@@ -32474,18 +32584,18 @@ var render = function() {
               _vm._v(" "),
               _c("p", { staticStyle: { "font-size": "1.2rem" } }, [
                 _vm._v(
-                  "\n                The Android-based Ordering and Billing System with QR Code enhances the customer experience\n                significantly. Furthermore, the restaurant's quality in food service, daily operations, and customer\n                interaction would be enhanced.\n            "
+                  "\n        The Android-based Ordering and Billing System with QR Code enhances\n        the customer experience significantly. Furthermore, the restaurant's\n        quality in food service, daily operations, and customer interaction\n        would be enhanced.\n      "
                 )
               ]),
               _vm._v(" "),
               _c(
                 "v-btn",
-                { attrs: { large: "", color: "primary" } },
+                { attrs: { href: "#", large: "", color: "primary" } },
                 [
                   _c("v-icon", { attrs: { left: "" } }, [
                     _vm._v("mdi-set-center")
                   ]),
-                  _vm._v("\n                Join us\n            ")
+                  _vm._v("\n        Join us\n      ")
                 ],
                 1
               )
@@ -32507,7 +32617,7 @@ var render = function() {
             },
             [
               _c("h2", {}, [
-                _vm._v("What we’re about. "),
+                _vm._v("\n          What we’re about.\n          "),
                 _c("span", { staticClass: "text-muted" }, [
                   _vm._v("For your information.")
                 ])
@@ -32515,7 +32625,7 @@ var render = function() {
               _vm._v(" "),
               _c("p", { staticClass: "lead" }, [
                 _vm._v(
-                  "\n                    The Android-based Ordering and Billing System with QR Code is a web and Android application that\n                    enables trouble-free transactions between consumers and restaurant owners. It will enable\n                    customers to easily choose items from the menu and pay their bills using the tablet on their\n                    table. Along with the fact that customers would not need to wait for waiters to take their\n                    orders, it makes it an excellent option for people with little free time.\n                "
+                  "\n          The Android-based Ordering and Billing System with QR Code is a web\n          and Android application that enables trouble-free transactions\n          between consumers and restaurant owners. It will enable customers to\n          easily choose items from the menu and pay their bills using the\n          tablet on their table. Along with the fact that customers would not\n          need to wait for waiters to take their orders, it makes it an\n          excellent option for people with little free time.\n        "
                 )
               ])
             ]
@@ -32566,7 +32676,7 @@ var render = function() {
             { staticClass: "lead", staticStyle: { "max-width": "620px" } },
             [
               _vm._v(
-                '\n            "Teamwork begins by building trust. And the only way to do that is to overcome our need for\n            invulnerability." – Patrick Lencioni\n        '
+                '\n      "Teamwork begins by building trust. And the only way to do that is to\n      overcome our need for invulnerability." – Patrick Lencioni\n    '
               )
             ]
           )
@@ -32663,117 +32773,79 @@ var render = function() {
         ])
       ]),
       _vm._v(" "),
-      _c("footer", { staticClass: "container py-5" }, [
-        _c("div", { staticClass: "row" }, [
-          _c("div", { staticClass: "col-12 col-md" }, [
-            _vm._v("\n                caia.\n                "),
-            _c("small", { staticClass: "d-block mb-3 text-muted" }, [
-              _vm._v("© 2021-2022")
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 col-md" }, [
-            _c("h5", [_vm._v("Features")]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-unstyled text-small" }, [
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Cool stuff")
-                ])
-              ]),
+      _c("div", { staticClass: "container" }, [
+        _c(
+          "footer",
+          {
+            staticClass:
+              "\n        d-flex\n        flex-wrap\n        justify-content-between\n        align-items-center\n        py-3\n        my-4\n        border-top\n      "
+          },
+          [
+            _c("div", { staticClass: "col-md-4 d-flex align-items-center" }, [
+              _c(
+                "a",
+                {
+                  staticClass:
+                    "mb-3 me-2 mb-md-0 text-muted text-decoration-none lh-1",
+                  attrs: { href: "/" }
+                },
+                [
+                  _c(
+                    "svg",
+                    { staticClass: "bi", attrs: { width: "30", height: "24" } },
+                    [_c("use", { attrs: { "xlink:href": "#bootstrap" } })]
+                  )
+                ]
+              ),
               _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Random feature")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Team feature")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Stuff for developers")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Another one")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Last time")
-                ])
+              _c("span", { staticClass: "text-muted" }, [
+                _vm._v("© 2021-2022 CAIA")
               ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 col-md" }, [
-            _c("h5", [_vm._v("Resources")]),
+            ]),
             _vm._v(" "),
-            _c("ul", { staticClass: "list-unstyled text-small" }, [
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Resource")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Resource name")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Another resource")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Final resource")
-                ])
-              ])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col-6 col-md" }, [
-            _c("h5", [_vm._v("About")]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-unstyled text-small" }, [
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Team")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Locations")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Privacy")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("li", [
-                _c("a", { staticClass: "text-muted", attrs: { href: "#" } }, [
-                  _vm._v("Terms")
-                ])
-              ])
-            ])
-          ])
-        ])
+            _c(
+              "ul",
+              {
+                staticClass:
+                  "nav col-md-4 justify-content-end list-unstyled d-flex"
+              },
+              [
+                _c(
+                  "li",
+                  { staticClass: "ms-3" },
+                  [
+                    _c("v-icon", { on: { click: _vm.goToFacebook } }, [
+                      _vm._v("mdi-facebook")
+                    ])
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "li",
+                  { staticClass: "ms-3" },
+                  [
+                    _c("v-icon", { on: { click: _vm.goToTwitter } }, [
+                      _vm._v("mdi-twitter")
+                    ])
+                  ],
+                  1
+                )
+              ]
+            )
+          ]
+        ),
+        _vm._v(" "),
+        _c(
+          "p",
+          { staticClass: "text-right", attrs: { id: "footer" } },
+          [
+            _c("v-icon", { attrs: { small: "" } }, [_vm._v("mdi-phone")]),
+            _vm._v(" Contact us:\n      "),
+            _c("strong", [_vm._v("091-0015-9347")])
+          ],
+          1
+        )
       ])
     ],
     1
