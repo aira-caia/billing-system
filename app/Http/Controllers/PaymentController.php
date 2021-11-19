@@ -25,11 +25,11 @@ class PaymentController extends Controller
             return response(["message" => "Access Forbidden"], 403);
 
         if ($request->is_served == "1") {
-            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 1)->groupBy("order_code")->get());
+            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 1)->groupBy("order_code", 'id', 'is_served', 'created_at')->get());
         } else if ($request->is_served == "0") {
-            $payments = PaymentResource::collection(Payment::orderBy("is_served")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 0)->groupBy("order_code")->get());
+            $payments = PaymentResource::collection(Payment::orderBy("is_served")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 0)->groupBy("order_code", 'id', 'is_served', 'created_at')->get());
         } else {
-            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code")->get());
+            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code", 'id', 'is_served', 'created_at')->get());
         }
         // return ['data' => []];
         return $payments;
@@ -330,9 +330,9 @@ class PaymentController extends Controller
             "method" => "required",
             "split_count" => "required|numeric|min:0",
             "table_name" => "required|string",
-//            "reference_number" => "required|string|min:5",
-//            "receipt_number" => "required|string|min:2",
-//            "payment_id" => "required|string|min:5",
+            //            "reference_number" => "required|string|min:5",
+            //            "receipt_number" => "required|string|min:2",
+            //            "payment_id" => "required|string|min:5",
             "orders" => "required|array"
         ]);
 
@@ -419,7 +419,7 @@ class PaymentController extends Controller
     //We're gonna store these bunch of data also to our database
     private function handleFullPayment(Request $request)
     {
-        if($request->get('method') === 'paypal'){
+        if ($request->get('method') === 'paypal') {
             $validated = Validator::make($request->all(), [
                 "type" => "required",
                 "method" => "required",
@@ -428,10 +428,10 @@ class PaymentController extends Controller
                 "amount" => "required|numeric|min:1",
                 "table_name" => "required|string",
                 "orders" => "required|array",
-//                "receipt_number" => "required|string|min:2",
-//                "payment_id" => "required|string|min:5",
-//                "split_count" => "nullable|numeric|min:0",
-//                "reference_number" => "required|string|min:5",
+                //                "receipt_number" => "required|string|min:2",
+                //                "payment_id" => "required|string|min:5",
+                //                "split_count" => "nullable|numeric|min:0",
+                //                "reference_number" => "required|string|min:5",
             ]);
             $gateway = new \Braintree\Gateway([
                 'environment' => 'sandbox',
@@ -447,11 +447,11 @@ class PaymentController extends Controller
                     'submitForSettlement' => true
                 ]
             ]);
-//            $validated['payment_id'] = $transaction['transaction']['id'];
-//            $validated['receipt_number'] = $transaction['paypal']['captureId'];
-//            $validated['reference_number'] = $transaction['paypal']['paymentId'];
+            //            $validated['payment_id'] = $transaction['transaction']['id'];
+            //            $validated['receipt_number'] = $transaction['paypal']['captureId'];
+            //            $validated['reference_number'] = $transaction['paypal']['paymentId'];
 
-        }else{
+        } else {
             $validated = Validator::make($request->all(), [
                 "order_code" => "required|string|min:3",
                 "amount" => "required|numeric|min:1",
@@ -469,11 +469,11 @@ class PaymentController extends Controller
             return response(['message' => 'Error', 'errors' => $validated->errors()], 400);
         }
         $data = $validated->validated();
-        if($request->get('method') === 'paypal') {
+        if ($request->get('method') === 'paypal') {
             $data['payment_id'] = $transaction->transaction->id;
             $data['receipt_number'] = $transaction->transaction->paypal['captureId'];
             $data['reference_number'] = $transaction->transaction->paypal['paymentId'];
-        }else {
+        } else {
             $data['method'] = 'paymaya';
         }
         $this->storePayment($data);
@@ -487,7 +487,7 @@ class PaymentController extends Controller
         $reference = $payment->references()->create($validated);
         $reference->purchases()->createMany($validated['orders']);
         foreach ($validated['orders'] as $order) {
-            Menu::find($order['menu_id'])->decrement('quantity',$order['count']);
+            Menu::find($order['menu_id'])->decrement('quantity', $order['count']);
         }
     }
 }
