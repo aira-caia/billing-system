@@ -4566,6 +4566,10 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_6___default().get("/api/report", (0,_dev_token__WEBPACK_IMPORTED_MODULE_7__.default)()).then(function (r) {
         _this.monthlySales = r.data.monthlySales;
         _this.weeklySales = r.data.weeklySales;
+        _this.monthlyInteractions = r.data.monthlyInteractions;
+        _this.weeklyInteractions = r.data.weeklyInteractions;
+        _this.monthlySold = r.data.monthlySold;
+        _this.weeklySold = r.data.weeklySold;
         _this.loaded = true;
       });
     }
@@ -35125,7 +35129,7 @@ var staticRenderFns = [
           staticClass: "hTitle text-center",
           attrs: { id: "monthlyInteractions" }
         },
-        [_vm._v("\n                INTERACTIONS REPORT\n            ")]
+        [_vm._v("\n        INTERACTIONS REPORT\n      ")]
       )
     ])
   },
@@ -35137,7 +35141,7 @@ var staticRenderFns = [
       _c(
         "h3",
         { staticClass: "hTitle text-center", attrs: { id: "monthlyPurchase" } },
-        [_vm._v("\n                PRODUCT PURCHASE REPORT\n            ")]
+        [_vm._v("\n        PRODUCT PURCHASE REPORT\n      ")]
       )
     ])
   }
