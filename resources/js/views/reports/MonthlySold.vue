@@ -3,11 +3,16 @@
     <div class="card-header border-0">
       <div class="d-flex justify-content-center">
         <h3 class="card-title">Monthly/Yearly Purchase Report</h3>
-          <v-btn
-              v-if="$route.name === 'reports'"
-              class="hideOnPrint" @click="$router.push({name: 'purchases'})" color="primary" small style="position: absolute; right: 10px">
-              print
-          </v-btn>
+        <v-btn
+          v-if="$route.name === 'reports'"
+          class="hideOnPrint"
+          @click="$router.push({ name: 'purchases' })"
+          color="primary"
+          small
+          style="position: absolute; right: 10px"
+        >
+          print
+        </v-btn>
       </div>
     </div>
 
@@ -71,7 +76,7 @@ export default {
         "https://adminlte.io/themes/v3/plugins/jquery/jquery.min.js"
       );
       await Vue.loadScript(
-        "https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js"
+        "https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"
       );
       var ticksStyle = {
         fontColor: "#495057",
@@ -110,8 +115,10 @@ export default {
             mode: mode,
             intersect: intersect,
           },
-          legend: {
-            display: false,
+        plugins: {
+            legend: {
+              display: false,
+            },
           },
           scales: {
             yAxes: [

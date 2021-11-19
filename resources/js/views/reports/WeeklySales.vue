@@ -170,7 +170,7 @@ export default {
         "https://adminlte.io/themes/v3/plugins/jquery/jquery.min.js"
       );
       await Vue.loadScript(
-        "https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js"
+        "https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"
       );
       var ticksStyle = {
         fontColor: "#495057",
@@ -196,8 +196,10 @@ export default {
             mode: mode,
             intersect: intersect,
           },
-          legend: {
-            display: false,
+          plugins: {
+            legend: {
+              display: false,
+            },
           },
           scales: {
             yAxes: [

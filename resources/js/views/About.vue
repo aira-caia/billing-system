@@ -71,7 +71,7 @@
             <div class="col-sm-5 pa-5">
                 <img
                     class="border-bottom border-warning rounded-lg elevation-2 reveal2"
-                    :src="web" style="background-size: cover; background-position: center; width: auto; height: 550px"
+                    :src="chartImg2" style="background-size: cover; background-position: center; width: auto; height: 550px"
                     alt="">
             </div>
         </v-card>
@@ -224,11 +224,15 @@
 
 <script>
 import web from "../assets/web.png"
+import chartImg from "../assets/chart2.png"
+import chartImg2 from "../assets/chart.png"
 
 export default {
     name: "About",
     data: () => ({
         web,
+        chartImg,
+        chartImg2
     }),
     mounted() {
         ScrollReveal({duration: 1500, reset: false})
@@ -244,7 +248,7 @@ export default {
 body {
     overflow-x: hidden;
 }
-.reveal1,.reveal2,.reveal3 {
+.reveal1,.reveal2,.reveal3,.reveal4 {
     /*opacity: 0;*/
     visibility: hidden;
 }

@@ -1904,6 +1904,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var _assets_web_png__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../assets/web.png */ "./resources/js/assets/web.png");
+/* harmony import */ var _assets_chart2_png__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../assets/chart2.png */ "./resources/js/assets/chart2.png");
+/* harmony import */ var _assets_chart_png__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../assets/chart.png */ "./resources/js/assets/chart.png");
 //
 //
 //
@@ -2129,11 +2131,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 
+
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "About",
   data: function data() {
     return {
-      web: _assets_web_png__WEBPACK_IMPORTED_MODULE_0__.default
+      web: _assets_web_png__WEBPACK_IMPORTED_MODULE_0__.default,
+      chartImg: _assets_chart2_png__WEBPACK_IMPORTED_MODULE_1__.default,
+      chartImg2: _assets_chart_png__WEBPACK_IMPORTED_MODULE_2__.default
     };
   },
   mounted: function mounted() {
@@ -3917,6 +3923,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MonthlyInteraction",
   props: ["payload"],
@@ -3953,7 +3964,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -3974,12 +3985,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       data: Object.values(_this.payload.data)
                     }
                     /*
-                                                          //Last year data
-                                                          {
-                                                              backgroundColor: "#ced4da",
-                                                              borderColor: "#ced4da",
-                                                              data: [700, 1700, 2700, 2000, 1800, 1500, 2000],
-                                                          },*/
+                                                                      //Last year data
+                                                                      {
+                                                                          backgroundColor: "#ced4da",
+                                                                          borderColor: "#ced4da",
+                                                                          data: [700, 1700, 2700, 2000, 1800, 1500, 2000],
+                                                                      },*/
                     ]
                   },
                   options: {
@@ -3992,8 +4003,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -4116,6 +4129,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MonthlySales",
   props: ["payload"],
@@ -4152,7 +4170,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -4191,8 +4209,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -4316,6 +4336,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "MonthlySold",
   props: ["payload"],
@@ -4352,7 +4377,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -4391,8 +4416,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -4749,7 +4776,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -4776,8 +4803,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -5027,7 +5056,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -5054,8 +5083,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -5304,7 +5335,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 _context2.next = 4;
-                return Vue.loadScript("https://adminlte.io/themes/v3/plugins/chart.js/Chart.min.js");
+                return Vue.loadScript("https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js");
 
               case 4:
                 ticksStyle = {
@@ -5331,8 +5362,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                       mode: mode,
                       intersect: intersect
                     },
-                    legend: {
-                      display: false
+                    plugins: {
+                      legend: {
+                        display: false
+                      }
                     },
                     scales: {
                       yAxes: [{
@@ -14327,7 +14360,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\n    overflow-x: hidden;\n}\n.reveal1,.reveal2,.reveal3 {\n    /*opacity: 0;*/\n    visibility: hidden;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\nbody {\n    overflow-x: hidden;\n}\n.reveal1,.reveal2,.reveal3,.reveal4 {\n    /*opacity: 0;*/\n    visibility: hidden;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -14782,6 +14815,36 @@ module.exports = function (url, options) {
 
   return url;
 };
+
+/***/ }),
+
+/***/ "./resources/js/assets/chart.png":
+/*!***************************************!*\
+  !*** ./resources/js/assets/chart.png ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/chart.png?c8e7f587dc114d98949852b5f38b9b3e");
+
+/***/ }),
+
+/***/ "./resources/js/assets/chart2.png":
+/*!****************************************!*\
+  !*** ./resources/js/assets/chart2.png ***!
+  \****************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/chart2.png?5374b45437537dda5799c9bd8da13e8d");
 
 /***/ }),
 
@@ -32376,7 +32439,7 @@ var render = function() {
                 width: "auto",
                 height: "550px"
               },
-              attrs: { src: _vm.web, alt: "" }
+              attrs: { src: _vm.chartImg2, alt: "" }
             })
           ])
         ]
@@ -34511,7 +34574,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n                print\n            ")]
+                [_vm._v("\n        print\n      ")]
               )
             : _vm._e()
         ],
@@ -34557,7 +34620,9 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "fas fa-arrow-up" }),
-              _vm._v("\n        " + _vm._s(_vm.payload.increased) + "%\n      ")
+              _vm._v(
+                "\n          " + _vm._s(_vm.payload.increased) + "%\n        "
+              )
             ]
           ),
           _vm._v(" "),
@@ -34576,7 +34641,9 @@ var render = function() {
             },
             [
               _c("i", { staticClass: "fas fa-arrow-down" }),
-              _vm._v("\n        " + _vm._s(_vm.payload.increased) + "%\n      ")
+              _vm._v(
+                "\n          " + _vm._s(_vm.payload.increased) + "%\n        "
+              )
             ]
           ),
           _vm._v(" "),
@@ -34592,7 +34659,11 @@ var render = function() {
                 }
               ]
             },
-            [_vm._v("\n        " + _vm._s(_vm.payload.increased) + "%\n      ")]
+            [
+              _vm._v(
+                "\n          " + _vm._s(_vm.payload.increased) + "%\n        "
+              )
+            ]
           ),
           _vm._v(" "),
           _c("span", { staticClass: "text-muted" }, [_vm._v("Since last year")])
@@ -34621,7 +34692,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "d-flex flex-row justify-content-end" }, [
       _c("span", { staticClass: "mr-2" }, [
         _c("i", { staticClass: "fas fa-square text-primary" }),
-        _vm._v(" Interaction\n    ")
+        _vm._v(" Interaction\n      ")
       ])
     ])
   }
@@ -34671,7 +34742,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            print\n        ")]
+                [_vm._v("\n        print\n      ")]
               )
             : _vm._e()
         ],
@@ -34839,7 +34910,7 @@ var render = function() {
                     }
                   }
                 },
-                [_vm._v("\n            print\n        ")]
+                [_vm._v("\n        print\n      ")]
               )
             : _vm._e()
         ],
