@@ -18,7 +18,7 @@
             >
           </li>
           <li class="nav-item">
-            <v-btn color="#ab97f3" class="ml-3" dark
+            <v-btn href="./caia.apk" color="#ab97f3" class="ml-3" dark
               >Download
               <v-icon>mdi-download</v-icon>
             </v-btn>
@@ -48,7 +48,7 @@
           A web and Android application that enables trouble-free transactions
           between consumers and restaurant owners.
         </p>
-        <a class="btn btn-outline-secondary" href="#">Try it now!</a>
+        <a class="btn btn-outline-secondary" href="./caia.apk">Try it now!</a>
       </div>
       <div class="product-device box-shadow d-none d-md-block"></div>
       <div

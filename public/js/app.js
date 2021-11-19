@@ -14703,7 +14703,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 var ___CSS_LOADER_URL_REPLACEMENT_0___ = _node_modules_css_loader_dist_runtime_getUrl_js__WEBPACK_IMPORTED_MODULE_1___default()(_assets_fonts_BergenSans_ttf__WEBPACK_IMPORTED_MODULE_2__.default);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: \"Bergen Sans\";\n    src: local(\"Bergen Sans\"),\n    url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"truetype\");\n}\n*[data-v-c8f9cd0c] {\n    padding: 0;\n    margin: 0;\n    box-sizing: border-box;\n    text-decoration: none;\n    font-family: \"Bergen Sans\";\n}\n@media screen and (min-width: 720px) {\n.leftPanel[data-v-c8f9cd0c] {\n        width: 50%;\n        height: 100vh;\n        background-color: #e6ebfe;\n        overflow: hidden;\n}\n.logo[data-v-c8f9cd0c] {\n        font-weight: bold;\n        font-size: 55px;\n        font-family: \"Bergen Sans\", sans-serif;\n        color: #ab97f3;\n}\n.leftPanel .title sub[data-v-c8f9cd0c] {\n        font-family: \"Bergen Sans\", sans-serif;\n        font-size: 1.2rem;\n}\n.leftPanel .title[data-v-c8f9cd0c] {\n        padding: 40px 50px;\n}\n.leftPanel img[data-v-c8f9cd0c] {\n        margin: 0 50px;\n}\n.rightPanel[data-v-c8f9cd0c] {\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        width: 50%;\n}\n.signInBox[data-v-c8f9cd0c] {\n        background: #ab97f3;\n        min-width: 562px;\n        color: #fff;\n        padding: 50px 40px;\n        border-radius: 30px;\n        position: relative;\n}\n.signInBox .title[data-v-c8f9cd0c] {\n        margin-bottom: 90px;\n}\n.rightPanel .inputGroup[data-v-c8f9cd0c] {\n        display: flex;\n        flex-direction: column;\n        margin: 10px 0 25px 0;\n}\n.rightPanel .inputGroup input[data-v-c8f9cd0c] {\n        font-size: 24px;\n        color: #fff;\n        margin-top: 7px;\n        outline: none;\n        border: none;\n        background: none;\n}\n.rightPanel .inputGroup input[data-v-c8f9cd0c]:focus {\n        border-bottom: 1.5px solid #fff;\n}\n.rightPanel form button[data-v-c8f9cd0c] {\n        width: 165px;\n        background: #f87193;\n        height: 45px;\n        border-radius: 55px;\n        outline: none;\n}\n.rightPanel .handIcon[data-v-c8f9cd0c] {\n        position: absolute;\n        bottom: 0;\n        right: 0;\n}\n.rightPanel .phoneIcon[data-v-c8f9cd0c] {\n        position: absolute;\n        top: -80px;\n        right: 0;\n}\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@font-face {\n    font-family: \"Bergen Sans\";\n    src: local(\"Bergen Sans\"),\n    url(" + ___CSS_LOADER_URL_REPLACEMENT_0___ + ") format(\"truetype\");\n}\na[data-v-c8f9cd0c] {\n    text-decoration: none !important;\n}\n*[data-v-c8f9cd0c] {\n    padding: 0;\n    margin: 0;\n    box-sizing: border-box;\n    text-decoration: none;\n    font-family: \"Bergen Sans\";\n}\n@media screen and (min-width: 720px) {\n.leftPanel[data-v-c8f9cd0c] {\n        width: 50%;\n        height: 100vh;\n        background-color: #e6ebfe;\n        overflow: hidden;\n}\n.logo[data-v-c8f9cd0c] {\n        font-weight: bold;\n        font-size: 55px;\n        font-family: \"Bergen Sans\", sans-serif;\n        color: #ab97f3;\n}\n.leftPanel .title sub[data-v-c8f9cd0c] {\n        font-family: \"Bergen Sans\", sans-serif;\n        font-size: 1.2rem;\n}\n.leftPanel .title[data-v-c8f9cd0c] {\n        padding: 40px 50px;\n}\n.leftPanel img[data-v-c8f9cd0c] {\n        margin: 0 50px;\n}\n.rightPanel[data-v-c8f9cd0c] {\n        display: flex;\n        justify-content: center;\n        align-items: center;\n        width: 50%;\n}\n.signInBox[data-v-c8f9cd0c] {\n        background: #ab97f3;\n        min-width: 562px;\n        color: #fff;\n        padding: 50px 40px;\n        border-radius: 30px;\n        position: relative;\n}\n.signInBox .title[data-v-c8f9cd0c] {\n        margin-bottom: 90px;\n}\n.rightPanel .inputGroup[data-v-c8f9cd0c] {\n        display: flex;\n        flex-direction: column;\n        margin: 10px 0 25px 0;\n}\n.rightPanel .inputGroup input[data-v-c8f9cd0c] {\n        font-size: 24px;\n        color: #fff;\n        margin-top: 7px;\n        outline: none;\n        border: none;\n        background: none;\n}\n.rightPanel .inputGroup input[data-v-c8f9cd0c]:focus {\n        border-bottom: 1.5px solid #fff;\n}\n.rightPanel form button[data-v-c8f9cd0c] {\n        width: 165px;\n        background: #f87193;\n        height: 45px;\n        border-radius: 55px;\n        outline: none;\n}\n.rightPanel .handIcon[data-v-c8f9cd0c] {\n        position: absolute;\n        bottom: 0;\n        right: 0;\n}\n.rightPanel .phoneIcon[data-v-c8f9cd0c] {\n        position: absolute;\n        top: -80px;\n        right: 0;\n}\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -32392,7 +32392,7 @@ var render = function() {
                     "v-btn",
                     {
                       staticClass: "ml-3",
-                      attrs: { color: "#ab97f3", dark: "" }
+                      attrs: { href: "./caia.apk", color: "#ab97f3", dark: "" }
                     },
                     [
                       _vm._v("Download\n            "),
@@ -32433,7 +32433,7 @@ var render = function() {
               "a",
               {
                 staticClass: "btn btn-outline-secondary",
-                attrs: { href: "#" }
+                attrs: { href: "./caia.apk" }
               },
               [_vm._v("Try it now!")]
             )
@@ -34330,7 +34330,7 @@ var render = function() {
                   top: "-45px",
                   left: "150px"
                 },
-                attrs: { color: "#ab97f3", dark: "" }
+                attrs: { href: "./caia.apk", color: "#ab97f3", dark: "" }
               },
               [_vm._v("Download "), _c("v-icon", [_vm._v("mdi-download")])],
               1

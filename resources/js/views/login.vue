@@ -10,7 +10,7 @@
         <div class="rightPanel" style="position: relative">
             <div class="signInBox">
                 <v-btn @click="$router.push({name: 'about'})" style="position: absolute; top: -45px; left: 40px">About</v-btn>
-                <v-btn color="#ab97f3" dark style="position: absolute; top: -45px; left: 150px">Download <v-icon>mdi-download</v-icon></v-btn>
+                <v-btn href="./caia.apk" color="#ab97f3" dark style="position: absolute; top: -45px; left: 150px">Download <v-icon>mdi-download</v-icon></v-btn>
                 <img class="handIcon" :src="sally8" alt="Hand"/>
                 <img class="phoneIcon" :src="sally12" alt="Hand"/>
                 <div class="title">
@@ -106,7 +106,9 @@ export default {
     src: local("Bergen Sans"),
     url("../assets/fonts/BergenSans.ttf") format("truetype");
 }
-
+a {
+    text-decoration: none !important;
+}
 * {
     padding: 0;
     margin: 0;
