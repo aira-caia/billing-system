@@ -11,6 +11,12 @@ export default {
 </script>
 
 <style>
+@media print {
+  @page {
+    size: landscape;
+    scale: 50;
+  }
+}
 .myContainer {
   margin: 70px 90px 0 344px;
   position: relative;
@@ -28,9 +34,9 @@ export default {
 }
 
 @media print {
-    .hideOnPrint {
-        display: none;
-    }
+  .hideOnPrint {
+    display: none;
+  }
 }
 * {
   padding: 0;
@@ -44,8 +50,8 @@ export default {
 }
 
 .alertBox {
-    position: fixed;
-    right: 100px;
-    z-index: 99;
+  position: fixed;
+  right: 100px;
+  z-index: 99;
 }
 </style>

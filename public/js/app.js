@@ -14312,7 +14312,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.myContainer {\n  margin: 70px 90px 0 344px;\n  position: relative;\n}\n@media screen and (min-width: 1400px) {\n.myContainer {\n    margin: 70px 10vw 0 344px;\n}\n}\n@media screen and (min-width: 1500px) {\n.myContainer {\n    margin: 70px 25vw 0 344px;\n}\n}\n@media print {\n.hideOnPrint {\n        display: none;\n}\n}\n* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  list-style: none;\n  outline: none;\n}\n.miniContainer {\n  margin: 75px 0;\n}\n.alertBox {\n    position: fixed;\n    right: 100px;\n    z-index: 99;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media print {\n@page {\n    size: landscape;\n    scale: 50;\n}\n}\n.myContainer {\n  margin: 70px 90px 0 344px;\n  position: relative;\n}\n@media screen and (min-width: 1400px) {\n.myContainer {\n    margin: 70px 10vw 0 344px;\n}\n}\n@media screen and (min-width: 1500px) {\n.myContainer {\n    margin: 70px 25vw 0 344px;\n}\n}\n@media print {\n.hideOnPrint {\n    display: none;\n}\n}\n* {\n  padding: 0;\n  margin: 0;\n  box-sizing: border-box;\n  list-style: none;\n  outline: none;\n}\n.miniContainer {\n  margin: 75px 0;\n}\n.alertBox {\n  position: fixed;\n  right: 100px;\n  z-index: 99;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
