@@ -68,10 +68,14 @@ class PaymentController extends Controller
         )
             return response(["message" => "Access Forbidden"], 403);
 
+
         $payment = Payment::where("order_code", $orderCode)->orderBy("id")->first();
+
+
         if ($payment == null) {
-            abort(403);
+            return response()->json(['error' => 'Invalid order code.'], 401);
         }
+
 
         if ($payment->type === "split_item") {
             $payments = Payment::where("order_code", $orderCode)->orderBy("id")->get();
