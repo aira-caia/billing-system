@@ -74,10 +74,12 @@ class MenuController extends Controller
         $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
         $bucket = $factory->createStorage()->getBucket();
         $path = $bucket->upload(file_get_contents($request->file('image_real')),['name' => 'menu/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+        $cropped = $bucket->upload(file_get_contents($request->file('image')),['name' => 'menu/crop/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
 
 //        $image->storeAs("/public/images", $imageName);
 //        $image_real->storeAs("/public/images/menu", $imageName);
         $validated['image_path'] = $path;
+        $validated['crop_path'] = $cropped;
         Menu::create($validated);
 
 

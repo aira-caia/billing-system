@@ -13,7 +13,7 @@
                 class="myCard"
             >
                 <img
-                    :src="item.image_path"
+                    :src="item.crop_path"
                     alt="food_image"
                     @click="handleEditDialog(item)"
                 />

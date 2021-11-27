@@ -24,6 +24,7 @@ class MenuResource extends JsonResource
             'category_id' => $this->category_id,
             'ingredients' => $this->ingredients,
             'image_path' =>  $this->image_path,
+            'crop_path' =>  $this->crop_path,
             'price' => $this->price,
             'quantity' => $this->quantity,
         ];

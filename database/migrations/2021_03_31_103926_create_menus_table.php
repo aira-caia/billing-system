@@ -20,6 +20,7 @@ class CreateMenusTable extends Migration
             $table->foreignId('category_id')->constrained();
             $table->decimal('price');
             $table->text('image_path');
+            $table->text('crop_path');
             $table->text('ingredients')->nullable();
             $table->timestamps();
         });
