@@ -30,7 +30,8 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('store', 'update', 'destroy');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('store', 'destroy');
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
-    Route::resource('user', AuthController::class)->only('index', 'update');
+    Route::resource('user', AuthController::class)->only('index');
+    Route::post('user/{user}',[AuthController::class,"update"]);
     Route::get("payments", [PaymentController::class, "payments"]);
     Route::get("payments/v2", [PaymentController::class, "webPayments"]);
     Route::get("home", [\App\Http\Controllers\AuthController::class, "home"]);
@@ -38,6 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('report', \App\Http\Controllers\ReportController::class)->only("index");
     Route::put('/inventory',[\App\Http\Controllers\MenuController::class, 'inventory']);
 });
+
 /*
 
 Route::post('test', function () {

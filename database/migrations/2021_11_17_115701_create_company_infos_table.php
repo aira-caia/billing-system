@@ -18,6 +18,7 @@ class CreateCompanyInfosTable extends Migration
             $table->id();
             $table->string('company_name');
             $table->text('slogan');
+            $table->text('image_path')->nullable();
         });
 
         CompanyInfo::create([

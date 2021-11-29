@@ -71,9 +71,17 @@ class AuthController extends Controller
     public function index(Request $request)
     {
         //This method will return the information of authenticated(logged in) user
-        return $request->user();
+        $user = $request->user();
+        $user['image_path'] = CompanyInfo::find(1)->image_path;
+        return $user;
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function update(Request $request, User $user)
     {
         //We call this method when we update our user
@@ -81,8 +89,21 @@ class AuthController extends Controller
             'username' => 'required|string',
             'password' => 'nullable|string|confirmed',
             'company_name' => 'required|string',
-            'slogan' => 'required|string'
+            'slogan' => 'required|string',
+            'image' => 'nullable'
         ]);
+
+        if($request->file('image')) {
+            //Store the image
+            $image = $request->file('image');
+            $imageName = time() . "." . $image->getClientOriginalExtension();
+
+            $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+            $bucket = $factory->createStorage()->getBucket();
+            $path = $bucket->upload(file_get_contents($image),['name' => 'profile/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+            $validated['image_path'] = $path;
+        }
+
         if (!$validated['password']) {
             unset($validated['password']);
         } else {

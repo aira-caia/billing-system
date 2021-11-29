@@ -9,6 +9,6 @@ class CompanyInfo extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['company_name','slogan'];
+    protected $fillable = ['company_name','slogan','image_path'];
     public $timestamps = false;
 }

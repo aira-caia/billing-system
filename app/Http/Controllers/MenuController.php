@@ -65,8 +65,6 @@ class MenuController extends Controller
         ]);
 
 
-
-
         $image = $request->file('image');
 //        $image_real = $request->file('image_real');
         $imageName = time() . "." . $image->getClientOriginalExtension();

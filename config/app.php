@@ -51,10 +51,13 @@ return [
     | your application so that it is used when running Artisan tasks.
     |
     */
-
+/*
     'url' => env('APP_URL', 'https://caia-app.herokuapp.com'),
+    'asset_url' => env('ASSET_URL', 'https://caia-app.herokuapp.com'),*/
 
-    'asset_url' => env('ASSET_URL', 'https://caia-app.herokuapp.com'),
+    'url' => env('APP_URL', 'https//localhost'),
+    'asset_url' => env('ASSET_URL', null),
+
 
     /*
     |--------------------------------------------------------------------------

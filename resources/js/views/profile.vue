@@ -1,7 +1,7 @@
 <template>
     <div id="main">
         <sidebar/>
-        <form class="myContainer" @submit.prevent="submit">
+        <form class="myContainer" enctype="multipart/form-data" @submit.prevent="submit">
             <welcome :src="iconBlush" title="My profile Settings"/>
             <!-- <img :src="manIcon" class="manIcon" alt="manIcon" /> -->
             <!-- <img :src="welcomeIcon" class="welcomeIcon" alt="" /> -->
@@ -10,6 +10,14 @@
                     <h3>Company Information</h3>
                     <v-text-field v-model="form.company_name" :error-messages="form.errors.get('company_name')" label="Name"></v-text-field>
                     <v-text-field v-model="form.slogan" :error-messages="form.errors.get('slogan')" label="Slogan"></v-text-field>
+                    <v-file-input
+                        show-size
+                        type="file"
+                        v-model="form.image"
+                        :error-messages="form.errors.get('image')"
+                        accept="image/*"
+                        label="Display Picture"  />
+
                 </div>
             </div>
             <hr class="my-4">
@@ -50,6 +58,7 @@ export default {
         form: new Form({
             username: "",
             password: "",
+            image: null,
             company_name: "",
             slogan: "",
             password_confirmation: "",
@@ -70,13 +79,16 @@ export default {
     methods: {
         submit() {
             this.form.errors.set({});
-            axios.patch(`/api/user/${this.form.id}`, {
-                username: this.form.username,
-                password: this.form.password,
-                password_confirmation: this.form.password_confirmation,
-                company_name: this.form.company_name,
-                slogan: this.form.slogan,
-            }, token()).then(r => {
+
+            const form = new FormData();
+            form.append('username',this.form.username)
+            form.append('password',this.form.password)
+            form.append('password_confirmation',this.form.password_confirmation)
+            form.append('company_name',this.form.company_name)
+            form.append('slogan',this.form.slogan)
+            form.append('image',this.form.image)
+
+            axios.post(`/api/user/${this.form.id}`, form, token()).then(r => {
                 Swal.fire({
                     icon: 'success',
                     title: 'Awesome!',
