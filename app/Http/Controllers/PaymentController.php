@@ -25,11 +25,11 @@ class PaymentController extends Controller
             return response(["message" => "Access Forbidden"], 403);
 
         if ($request->is_served == "1") {
-            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 1)->groupBy("order_code", 'is_served')->get());
+            $payments = PaymentResource::collection(Payment::orderByDesc("created_at")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 1)->groupBy("order_code", 'is_served', 'created_at')->get());
         } else if ($request->is_served == "0") {
-            $payments = PaymentResource::collection(Payment::orderBy("is_served")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 0)->groupBy("order_code", 'is_served')->get());
+            $payments = PaymentResource::collection(Payment::orderBy("is_served")->whereDate('created_at', '>', Carbon::today()->subDays(1))->where("is_served", 0)->groupBy("order_code", 'is_served', 'created_at')->get());
         } else {
-            $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code", 'is_served')->get());
+            $payments = PaymentResource::collection(Payment::orderByDesc("created_at")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code", 'is_served', 'created_at')->get());
         }
         // return ['data' => []];
         return $payments;
