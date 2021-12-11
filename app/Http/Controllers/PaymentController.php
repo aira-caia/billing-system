@@ -31,7 +31,14 @@ class PaymentController extends Controller
         } else {
             $payments = PaymentResource::collection(Payment::orderByDesc("id")->whereDate('created_at', '>', Carbon::today()->subDays(1))->groupBy("order_code", 'id', 'is_served', 'created_at')->get());
         }
+
+        dd($payments);
+
         // return ['data' => []];
+        $payments = array_filter($payments->toArray(), function ($p) {
+            return count($p['orders']) > 0;
+        });
+
         return $payments;
     }
 
