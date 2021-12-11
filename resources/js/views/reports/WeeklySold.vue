@@ -7,7 +7,7 @@
     </div>
     <div class="card-body mt-5">
       <div class="text-center mb-5">
-        <span class="text-bold text-lg">Month of June 2020</span>
+        <span class="text-bold text-lg">{{ date }}</span>
       </div>
       <div class="d-flex">
         <p class="d-flex flex-column">
@@ -71,7 +71,9 @@
 export default {
   name: "WeeklySold",
   props: ["payload"],
-  async mounted() {},
+  async mounted() {
+    this.date = "Month of " + moment().format("MMM YYYY");
+  },
   watch: {
     payload() {
       this.rework(this.payload);
@@ -88,6 +90,7 @@ export default {
       "Saturday",
       "Sunday",
     ],
+    date: "",
     datasets: [
       {
         backgroundColor: "#007bff",
