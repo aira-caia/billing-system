@@ -33,7 +33,6 @@ class PaymentController extends Controller
         }
 
         /*
-
         // return ['data' => []];
         $payments = array_filter($payments->collection->toArray(), function ($p) {
             return $p->orders && count($p->orders) > 0;
