@@ -14,7 +14,7 @@ class MenuController extends Controller
 
     public function notify()
     {
-        $menus = Menu::where('quantity',"<", 21)->get();
+        $menus = Menu::where('quantity', "<", 21)->get();
         return response($menus);
     }
 
@@ -29,7 +29,7 @@ class MenuController extends Controller
         $menu = Menu::class;
 
         // When we use search on mobile app this variable handles the query
-        $menu = $menu::where("title", "like", "%{$request->get("s")}%");
+        $menu = $menu::where("title", "like", "%{$request->get("s")}%")->where('status', 1);
 
         if (!$request->get('query') || $request->get('query') === "All") {
             $menu = $menu->get();
@@ -66,16 +66,16 @@ class MenuController extends Controller
 
 
         $image = $request->file('image');
-//        $image_real = $request->file('image_real');
+        //        $image_real = $request->file('image_real');
         $imageName = time() . "." . $image->getClientOriginalExtension();
 
-        $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+        $factory = (new Factory)->withServiceAccount(__DIR__ . '/config.json');
         $bucket = $factory->createStorage()->getBucket();
-        $path = $bucket->upload(file_get_contents($request->file('image_real')),['name' => 'menu/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
-        $cropped = $bucket->upload(file_get_contents($request->file('image')),['name' => 'menu/crop/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+        $path = $bucket->upload(file_get_contents($request->file('image_real')), ['name' => 'menu/' . $imageName])->signedUrl(new \DateTime('2400-04-15'));
+        $cropped = $bucket->upload(file_get_contents($request->file('image')), ['name' => 'menu/crop/' . $imageName])->signedUrl(new \DateTime('2400-04-15'));
 
-//        $image->storeAs("/public/images", $imageName);
-//        $image_real->storeAs("/public/images/menu", $imageName);
+        //        $image->storeAs("/public/images", $imageName);
+        //        $image_real->storeAs("/public/images/menu", $imageName);
         $validated['image_path'] = $path;
         $validated['crop_path'] = $cropped;
         Menu::create($validated);
@@ -93,10 +93,10 @@ class MenuController extends Controller
             'quantity' => 'required|numeric'
         ]);
 
-        Menu::find($validated['menu_id'])->increment('quantity',$validated['quantity']);
+        Menu::find($validated['menu_id'])->increment('quantity', $validated['quantity']);
 
         return response(['message' => 'Stocks has been updated!']);
-   }
+    }
 
     /**
      * Remove the specified resource from storage.
@@ -111,7 +111,8 @@ class MenuController extends Controller
         //If the selected menu has an existing record of purchases, we will not be able to delete that,
         //because of foreign key constraints on our database
         if ($menu->purchases->count() > 0) {
-            return response(["message" => "This menu has an existing records of purchases."], 400);
+            // return response(["message" => "This menu has an existing records of purchases."], 400);
+            $menu->update(['status' => 0]);
         }
 
         //Delete the image of selected menu
