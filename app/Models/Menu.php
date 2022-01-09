@@ -10,9 +10,9 @@ use Illuminate\Support\Facades\Storage;
 class Menu extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'price', 'ingredients', 'image_path', 'category_id','quantity','crop_path'];
+    protected $fillable = ['title', 'price', 'ingredients', 'image_path', 'category_id', 'quantity', 'crop_path', 'status'];
     protected $hidden = ['created_at', 'updated_at'];
-/*
+    /*
     public function getImagePathAttribute($value)
     {
         return env("APP_URL") . Storage::url("images/menu/" . $value);
