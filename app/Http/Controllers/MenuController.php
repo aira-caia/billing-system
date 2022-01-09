@@ -113,12 +113,13 @@ class MenuController extends Controller
         if ($menu->purchases->count() > 0) {
             // return response(["message" => "This menu has an existing records of purchases."], 400);
             $menu->update(['status' => 0]);
+        } else {
+            $menu->delete();
+            //Delete the image of selected menu
+            // Storage::disk('public')->delete("images/" . $menu->image_path);
+            // Storage::disk('public')->delete("images/menu/" . $menu->image_path);
         }
 
-        //Delete the image of selected menu
-        Storage::disk('public')->delete("images/" . $menu->image_path);
-        Storage::disk('public')->delete("images/menu/" . $menu->image_path);
-        $menu->delete();
         return response([
             'message' => "OK"
         ]);
