@@ -3,6 +3,17 @@
     <sidebar />
     <div class="myContainer">
       <div class="p-3">
+        <v-btn
+          color="primary"
+          class="mb-2"
+          text
+          small
+          :to="{ name: 'transaction' }"
+        >
+          <v-icon small>mdi-cart</v-icon>
+          View Transactions</v-btn
+        >
+
         <div class="mb-5 d-flex justify-content-center">
           <h3 class="hTitle text-center" id="monthlySales">SALES REPORT</h3>
         </div>
@@ -15,11 +26,33 @@
         </div>
         <MonthlyInteraction :payload="monthlyInteractions" />
         <weekly-interaction :payload="weeklyInteractions" />
+
         <div class="my-5 d-flex justify-content-center">
           <h3 class="hTitle text-center" id="monthlyPurchase">
             PRODUCT PURCHASE REPORT
           </h3>
         </div>
+        <v-alert outlined color="success" class="my-2">
+          <div class="text-h6 mb-2">Purchases</div>
+          <div>
+            <v-btn color="primary" outlined small @click="purchase('daily')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Daily
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('weekly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Weekly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('monthly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Monthly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('yearly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Yearly
+            </v-btn>
+          </div>
+        </v-alert>
         <monthly-sold :payload="monthlySold" />
         <weekly-sold :payload="weeklySold" />
         <!--                <WeeklySales :payload="weekly"/>-->
@@ -71,6 +104,20 @@ export default {
         this.monthlySold = r.data.monthlySold;
         this.weeklySold = r.data.weeklySold;
       });
+    },
+    purchase(val) {
+      axios
+        .get("/api/report/purchase/group", {
+          ...token(),
+          params: { type: val },
+        })
+        .then((r) => {
+          localStorage.setItem("products", JSON.stringify(r.data));
+          let routeData = this.$router.resolve({
+            name: "product-report",
+          });
+          window.open(routeData.href, "_blank");
+        });
     },
   },
 };

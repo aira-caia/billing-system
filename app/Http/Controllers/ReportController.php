@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\PurchaseResource;
+use App\Http\Resources\WebPaymentResource;
 use App\Models\Payment;
 use App\Models\Purchase;
 use Carbon\Carbon;
@@ -33,6 +35,99 @@ class ReportController extends Controller
             "weeklyInteractions",
             "weeklySold"
         ));
+    }
+
+    public function transact(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required|in:daily,weekly,monthly,yearly',
+        ]);
+        $type = $validated['type'];
+        $now = Carbon::now();
+        if ($type === 'daily') {
+            $payments = WebPaymentResource::collection(Payment::whereDate("created_at", $now)->get());
+        } else if ($type === 'weekly') {
+            $payments = WebPaymentResource::collection(Payment::whereBetween("created_at", [
+                $now->startOfWeek()->format('Y-m-d'),
+                $now->endOfWeek()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'monthly') {
+            $payments = WebPaymentResource::collection(Payment::whereBetween("created_at", [
+                $now->startOfMonth()->format('Y-m-d'),
+                $now->endOfMonth()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'yearly') {
+            $payments = WebPaymentResource::collection(Payment::whereBetween("created_at", [
+                $now->startOfYear()->format('Y-m-d'),
+                $now->endOfYear()->format('Y-m-d')
+            ])->get());
+        }
+        return response()->json($payments);
+    }
+
+    public function purchaseGroup(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required|in:daily,weekly,monthly,yearly',
+        ]);
+        $type = $validated['type'];
+        $now = Carbon::now();
+        if ($type === 'daily') {
+            $payments = PurchaseResource::collection(Purchase::whereDate("created_at", $now)->get());
+        } else if ($type === 'weekly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfWeek()->format('Y-m-d'),
+                $now->endOfWeek()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'monthly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfMonth()->format('Y-m-d'),
+                $now->endOfMonth()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'yearly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfYear()->format('Y-m-d'),
+                $now->endOfYear()->format('Y-m-d')
+            ])->get());
+        }
+        $data = $payments->groupBy(function ($item) {
+            return $item->menu->title;
+        })->map(function ($items, $key) {
+            return ['count' => $items->sum('count'), 'amount' => $items->sum('amount'), 'title' => $key];
+        })->values();
+
+
+
+
+        return response()->json($data);
+    }
+
+    public function purchase(Request $request)
+    {
+        $validated = $request->validate([
+            'type' => 'required|in:daily,weekly,monthly,yearly',
+        ]);
+        $type = $validated['type'];
+        $now = Carbon::now();
+        if ($type === 'daily') {
+            $payments = PurchaseResource::collection(Purchase::whereDate("created_at", $now)->get());
+        } else if ($type === 'weekly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfWeek()->format('Y-m-d'),
+                $now->endOfWeek()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'monthly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfMonth()->format('Y-m-d'),
+                $now->endOfMonth()->format('Y-m-d')
+            ])->get());
+        } else if ($type === 'yearly') {
+            $payments = PurchaseResource::collection(Purchase::whereBetween("created_at", [
+                $now->startOfYear()->format('Y-m-d'),
+                $now->endOfYear()->format('Y-m-d')
+            ])->get());
+        }
+        return response()->json($payments);
     }
 
     private function monthlySold(): array
