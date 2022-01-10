@@ -208,6 +208,10 @@
             max-width="300px"
           />
           <h5>Ivy Recinte</h5>
+          <div class="phoneNumber">
+            <v-icon x-small>mdi-phone</v-icon>
+            +63 (123) 456-7890
+          </div>
           <p class="text-muted">Analyst</p>
         </div>
         <div class="col-sm-3 reveal4">
@@ -219,6 +223,10 @@
             max-width="300px"
           />
           <h5>Michaela Aira Salenga</h5>
+          <div class="phoneNumber">
+            <v-icon x-small>mdi-phone</v-icon>
+            +63 (123) 456-7890
+          </div>
           <p class="text-muted">Programmer</p>
         </div>
         <div class="col-sm-3 reveal4">
@@ -230,6 +238,10 @@
             max-width="300px"
           />
           <h5>Ace Sangalang</h5>
+          <div class="phoneNumber">
+            <v-icon x-small>mdi-phone</v-icon>
+            +63 (123) 456-7890
+          </div>
           <p class="text-muted">Tester & Documentation</p>
         </div>
         <div class="col-sm-3 reveal4">
@@ -241,6 +253,10 @@
             max-width="300px"
           />
           <h5>Cathlyn Serrano</h5>
+          <div class="phoneNumber">
+            <v-icon x-small>mdi-phone</v-icon>
+            +63 (123) 456-7890
+          </div>
           <p class="text-muted">Designer</p>
         </div>
       </div>
@@ -346,6 +362,7 @@ export default {
 html {
   scroll-behavior: smooth;
 }
+
 body {
   overflow-x: hidden;
 }
@@ -364,6 +381,9 @@ a {
 }
 ul {
   padding-left: 0;
+}
+.phoneNumber {
+  font-size: 0.8rem;
 }
 
 #ourTeam h5 {

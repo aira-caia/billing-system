@@ -25,6 +25,7 @@ class PurchaseResource extends JsonResource
             "amount" => number_format($this->amount, 2),
             "realAmount" => $this->amount,
             "image" => $this->menu->image_path,
+            'realCount' => $this->count
         ];
     }
 }

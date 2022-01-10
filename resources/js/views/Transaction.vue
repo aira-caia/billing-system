@@ -2,10 +2,66 @@
   <div id="main">
     <sidebar />
     <div class="myContainer">
+      <div class="mb-4">
+        <v-btn
+          color="primary"
+          text
+          small
+          :to="{ name: 'reports' }"
+          class="mb-2"
+        >
+          <v-icon small>mdi-cash-register</v-icon>
+          View Sales</v-btn
+        >
+        <v-alert outlined color="success">
+          <div class="text-h6 mb-2">Generate Report</div>
+          <div class="font-weight-bold mb-2">Transactions</div>
+          <div>
+            <v-btn color="primary" outlined small @click="report('daily')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Daily
+            </v-btn>
+            <v-btn color="primary" outlined small @click="report('weekly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Weekly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="report('monthly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Monthly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="report('yearly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Yearly
+            </v-btn>
+          </div>
+          <div class="font-weight-bold my-2">Purchases</div>
+          <div>
+            <v-btn color="primary" outlined small @click="purchase('daily')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Daily
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('weekly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Weekly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('monthly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Monthly
+            </v-btn>
+            <v-btn color="primary" outlined small @click="purchase('yearly')">
+              <v-icon small>mdi-format-list-text</v-icon>
+              Yearly
+            </v-btn>
+          </div>
+        </v-alert>
+      </div>
       <template>
         <v-card>
           <v-card-title>
             Transactions
+            <v-btn color="primary" class="ml-2" small @click="printPayments()"
+              >Print</v-btn
+            >
             <v-spacer></v-spacer>
             <v-text-field
               v-model="search"
@@ -30,6 +86,13 @@
           <v-card>
             <v-card-title>
               Purchases on selected order
+              <v-btn
+                color="primary"
+                class="ml-2"
+                small
+                @click="printPayments('purchases-report')"
+                >Print</v-btn
+              >
               <v-spacer></v-spacer>
               <v-text-field
                 v-model="searchPurchase"
@@ -85,6 +148,7 @@ export default {
       { text: "Total Amount (Peso)", value: "amount" },
       { text: "Ingredients", value: "ingredients" },
     ],
+    type: "daily",
     payments: [],
     purchases: [],
   }),
@@ -96,6 +160,43 @@ export default {
   methods: {
     handleClick(value) {
       this.getPurchase(value.receipt_number);
+    },
+    report(val) {
+      axios
+        .get("/api/report/transact", { ...token(), params: { type: val } })
+        .then((r) => {
+          localStorage.setItem("payments", JSON.stringify(r.data));
+          let routeData = this.$router.resolve({
+            name: "transaction-report",
+          });
+          window.open(routeData.href, "_blank");
+        });
+    },
+    purchase(val) {
+      axios
+        .get("/api/report/purchase", { ...token(), params: { type: val } })
+        .then((r) => {
+          localStorage.setItem("purchases", JSON.stringify(r.data));
+          let routeData = this.$router.resolve({
+            name: "purchases-report",
+          });
+          window.open(routeData.href, "_blank");
+        });
+    },
+    printPayments(type = "payments") {
+      if (type === "payments") {
+        localStorage.setItem("payments", JSON.stringify(this.payments));
+        let routeData = this.$router.resolve({
+          name: "transaction-report",
+        });
+        window.open(routeData.href, "_blank");
+      } else {
+        localStorage.setItem("purchases", JSON.stringify(this.purchases));
+        let routeData = this.$router.resolve({
+          name: "purchases-report",
+        });
+        window.open(routeData.href, "_blank");
+      }
     },
     getPurchase(code) {
       axios

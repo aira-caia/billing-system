@@ -9,6 +9,8 @@ import Transaction from "../views/Transaction.vue"
 import middlewares from "../middlewares/index"
 import NotFound from "../views/404.vue";
 import PrintSales from "../views/reports/PrintSales";
+import PrintPurchase from "../views/reports/PrintPurchase";
+import PrintTransaction from "../views/reports/PrintTransaction";
 import About from "../views/About";
 Vue.use(VueRouter)
 
@@ -88,6 +90,30 @@ const routes = [
         path: '/transaction',
         component: Transaction,
         name: "transaction",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/transaction-report',
+        component: PrintTransaction,
+        name: "transaction-report",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/product-report',
+        component: PrintPurchase,
+        name: "product-report",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/purchases-report',
+        component: PrintTransaction,
+        name: "purchases-report",
         meta: {
             middlewares: [middlewares.auth]
         }

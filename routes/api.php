@@ -21,23 +21,26 @@ Route::get("orders", [PaymentController::class, "orders"]);
 Route::get("receipt/{q}", [PaymentController::class, "receipt"]);
 Route::get("receipt/v2/{q}", [PaymentController::class, "receiptWeb"]);
 
-Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('index','show');
+Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('index', 'show');
 Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('index');
 Route::post('/login', [\App\Http\Controllers\AuthController::class, 'login']);
-Route::resource('company',\App\Http\Controllers\CompanyInfoController::class);
+Route::resource('company', \App\Http\Controllers\CompanyInfoController::class);
 Route::get('notify', [\App\Http\Controllers\MenuController::class, 'notify']);
 Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('store', 'update', 'destroy');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('store', 'destroy');
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::resource('user', AuthController::class)->only('index');
-    Route::post('user/{user}',[AuthController::class,"update"]);
+    Route::post('user/{user}', [AuthController::class, "update"]);
     Route::get("payments", [PaymentController::class, "payments"]);
     Route::get("payments/v2", [PaymentController::class, "webPayments"]);
     Route::get("home", [\App\Http\Controllers\AuthController::class, "home"]);
     Route::resource('payment', PaymentController::class)->only("update");
     Route::resource('report', \App\Http\Controllers\ReportController::class)->only("index");
-    Route::put('/inventory',[\App\Http\Controllers\MenuController::class, 'inventory']);
+    Route::put('/inventory', [\App\Http\Controllers\MenuController::class, 'inventory']);
+    Route::get('report/transact', [\App\Http\Controllers\ReportController::class, 'transact']);
+    Route::get('report/purchase', [\App\Http\Controllers\ReportController::class, 'purchase']);
+    Route::get('report/purchase/group', [\App\Http\Controllers\ReportController::class, 'purchaseGroup']);
 });
 
 /*
