@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Storage;
 class Menu extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'price', 'ingredients', 'image_path', 'category_id', 'quantity', 'crop_path', 'status'];
+    protected $fillable = ['title', 'price', 'ingredients', 'image_path', 'category_id', 'quantity', 'crop_path', 'status', 'previous_price', 'preparation_time'];
     protected $hidden = ['created_at', 'updated_at'];
     /*
     public function getImagePathAttribute($value)

@@ -34,6 +34,14 @@
             placeholder="Price"
           />
         </div>
+        <div class="input">
+          <v-icon x-large>mdi-clock</v-icon>
+          <input
+            v-model="preparation_time"
+            type="number"
+            placeholder="Preparation (AVG minutes)"
+          />
+        </div>
         <div class="inputArea">
           <label for="ingredientInput">Ingredients</label>
           <div class="myWrapperArea">
@@ -41,6 +49,7 @@
               v-model="ingredients"
               id="ingredientInput"
               placeholder="Write the main ingredients"
+              rows="2"
             ></textarea>
           </div>
         </div>
@@ -122,6 +131,7 @@ export default {
       canvas: null,
       imageName: "",
       price: "0.00",
+      preparation_time: "",
       title: "",
       process: false,
       ingredients: "",
@@ -141,6 +151,7 @@ export default {
       this.canvas.toBlob((blob) => {
         let formData = new FormData();
         formData.append("price", this.price);
+        formData.append("preparation_time", this.preparation_time);
         formData.append("title", this.title);
         formData.append("ingredients", this.ingredients);
         formData.append("image", blob, this.imageName);
@@ -153,6 +164,7 @@ export default {
             this.imageName = "";
             this.price = "0.00";
             this.title = "";
+            this.preparation_time = "";
             this.ingredients = "";
             this.reloadMenus();
             this.setMenuDialog(false);
@@ -263,14 +275,14 @@ export default {
   height: 661px;
   z-index: 2;
   border-radius: 30px;
-  padding: 140px 40px;
+  padding: 80px 40px;
 }
 
 .imageCircle {
   width: 132px;
   height: 132px;
   background: #fff;
-    border-bottom: 3px solid #222;
+  border-bottom: 3px solid #222;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -318,7 +330,7 @@ export default {
   display: flex;
   align-items: center;
   padding-left: 20px;
-  margin: 15px 0;
+  margin: 10px 0;
 }
 
 .cropperContainer {

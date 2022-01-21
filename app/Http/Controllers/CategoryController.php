@@ -47,14 +47,16 @@ class CategoryController extends Controller
         $image = $request->file('image');
         $imageName = time() . "." . $image->getClientOriginalExtension();
 
-        $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+        $factory = (new Factory)->withServiceAccount(__DIR__ . '/config.json');
         $bucket = $factory->createStorage()->getBucket();
-        $path = $bucket->upload(file_get_contents($image),['name' => 'categories/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+        $path = $bucket->upload(file_get_contents($image), ['name' => 'categories/' . $imageName])->signedUrl(new \DateTime('2400-04-15'));
 
 
-//        $image->storeAs("/public/images/categories", $imageName);
+        //        $image->storeAs("/public/images/categories", $imageName);
         $validated['image_path'] = $path;
         Category::create($validated);
+
+        $this->log("Category", "New Category added by " . $request->user()->username);
 
         return response([
             'message' => "OK"
@@ -101,7 +103,7 @@ class CategoryController extends Controller
      * @param  \App\Models\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy(Request $request, Category $category)
     {
         // Method is called when we delete the category
         if ($category->menus->count() > 0) {
@@ -112,6 +114,9 @@ class CategoryController extends Controller
         // delete the image of that category
         Storage::disk('public')->delete("images/categories/" . $category->image_path);
         $category->delete();
+
+        $this->log("Category", "Category deleted by " . $request->user()->username);
+
         return response([
             'message' => "OK"
         ]);

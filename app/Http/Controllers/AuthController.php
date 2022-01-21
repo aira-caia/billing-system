@@ -58,13 +58,16 @@ class AuthController extends Controller
             'token' => $token
         ];
 
+        $this->log("Login", "User " . $user->username . " logged in");
+
         //If user is successfully logged in, we will send the token, including the authenticated user info.
         return response()->json($response);
     }
-    public function logout()
+    public function logout(Request $request)
     {
         //Everytime we logout on our app, we are destroying our tokens.
         auth()->user()->tokens()->delete();
+        $this->log("Logout", "User " . $request->user()->username . " logged out");
         return response(['message' => "OK"]);
     }
 
@@ -93,14 +96,14 @@ class AuthController extends Controller
             'image' => 'nullable'
         ]);
 
-        if($request->file('image')) {
+        if ($request->file('image')) {
             //Store the image
             $image = $request->file('image');
             $imageName = time() . "." . $image->getClientOriginalExtension();
 
-            $factory = (new Factory) ->withServiceAccount(__DIR__.'/config.json');
+            $factory = (new Factory)->withServiceAccount(__DIR__ . '/config.json');
             $bucket = $factory->createStorage()->getBucket();
-            $path = $bucket->upload(file_get_contents($image),['name' => 'profile/'.$imageName])->signedUrl(new \DateTime('2400-04-15'));
+            $path = $bucket->upload(file_get_contents($image), ['name' => 'profile/' . $imageName])->signedUrl(new \DateTime('2400-04-15'));
             $validated['image_path'] = $path;
         }
 

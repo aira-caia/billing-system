@@ -61,7 +61,8 @@ class MenuController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
             'image_real' => 'required|image|mimes:jpeg,png,jpg,gif',
             'ingredients' => 'nullable|string',
-            'category_id' => 'required|numeric|exists:categories,id'
+            'category_id' => 'required|numeric|exists:categories,id',
+            'preparation_time' => 'required|integer',
         ]);
 
 
@@ -80,6 +81,7 @@ class MenuController extends Controller
         $validated['crop_path'] = $cropped;
         Menu::create($validated);
 
+        $this->log("Menu", "New Menu added by " . $request->user()->username);
 
         return response([
             'message' => "New menu has been created."
@@ -90,10 +92,19 @@ class MenuController extends Controller
     {
         $validated = $request->validate([
             'menu_id' => 'required|numeric|exists:menus,id',
-            'quantity' => 'required|numeric'
+            'quantity' => 'required|numeric',
+            'remarks' => 'nullable'
         ]);
 
-        Menu::find($validated['menu_id'])->increment('quantity', $validated['quantity']);
+        $menu = Menu::find($validated['menu_id']);
+        $absoluteQuantity = abs(abs($validated['quantity']));
+        if ((int) $validated['quantity'] < 0) {
+            $this->log("Inventory Decrease", $validated['remarks'] . " - " . $request->user()->username . " ($absoluteQuantity pc/s " . $menu->title . ")");
+        } else {
+            $this->log("Inventory Increase", $validated['remarks'] . " - " . $request->user()->username . " ($absoluteQuantity pc/s " . $menu->title . ")");
+        }
+
+        $menu->increment('quantity', $validated['quantity']);
 
         return response(['message' => 'Stocks has been updated!']);
     }
@@ -104,7 +115,7 @@ class MenuController extends Controller
      * @param \App\Models\Menu $menu
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Menu $menu)
+    public function destroy(Request $request, Menu $menu)
     {
         //This method is called , when we delete a menu
 
@@ -120,6 +131,8 @@ class MenuController extends Controller
             // Storage::disk('public')->delete("images/menu/" . $menu->image_path);
         }
 
+        $this->log("Menu", "Menu deleted by " . $request->user()->username);
+
         return response([
             'message' => "OK"
         ]);
@@ -131,8 +144,16 @@ class MenuController extends Controller
             'title' => 'required|string|max:255',
             'price' => 'required|numeric',
             'ingredients' => 'nullable|string',
+            'preparation_time' => 'required|integer',
         ]);
+
+        if ((float) $menu->price !== (float) $validated['price']) {
+            $validated['previous_price'] = $menu->price;
+        }
+
         $menu->update($validated);
+
+        $this->log("Menu", "Menu updated by " . $request->user()->username);
 
         return response([
             'message' => "New menu has been created."

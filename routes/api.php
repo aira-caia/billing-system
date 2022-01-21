@@ -29,6 +29,7 @@ Route::get('notify', [\App\Http\Controllers\MenuController::class, 'notify']);
 Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::resource('menu', \App\Http\Controllers\MenuController::class)->only('store', 'update', 'destroy');
     Route::resource('categories', \App\Http\Controllers\CategoryController::class)->only('store', 'destroy');
+    Route::resource('logs', \App\Http\Controllers\LogController::class)->only('index');
     Route::post('/logout', [\App\Http\Controllers\AuthController::class, 'logout']);
     Route::resource('user', AuthController::class)->only('index');
     Route::post('user/{user}', [AuthController::class, "update"]);
