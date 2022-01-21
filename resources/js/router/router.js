@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 import Login from "../views/login.vue"
 import Reports from "../views/Reports.vue"
 import Menu from "../views/settings.vue"
+import Logs from "../views/Logs.vue"
 import home from "../views/home.vue"
 import profile from "../views/profile.vue"
 import Transaction from "../views/Transaction.vue"
@@ -24,11 +25,19 @@ const routes = [
             middlewares: [middlewares.guest]
         }
     },
-    // { path: "*", component: NotFound },
+    { path: "*", component: NotFound },
     {
         path: '/menu',
         component: Menu,
         name: "menu",
+        meta: {
+            middlewares: [middlewares.auth]
+        }
+    },
+    {
+        path: '/logs',
+        component: Logs,
+        name: "logs",
         meta: {
             middlewares: [middlewares.auth]
         }

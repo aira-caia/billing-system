@@ -26,6 +26,8 @@ class MenuResource extends JsonResource
             'image_path' =>  $this->image_path,
             'crop_path' =>  $this->crop_path,
             'price' => $this->price,
+            'previous_price' => $this->previous_price,
+            'preparation_time' => $this->preparation_time,
             'quantity' => $this->quantity,
         ];
     }
