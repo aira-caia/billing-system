@@ -40,10 +40,10 @@ class MenuController extends Controller
 
         $bestSellers = Menu::join('purchases', 'menus.id', '=', 'purchases.menu_id')
             ->select('menus.*', DB::raw('SUM(purchases.count) as total'))
-            ->groupBy('purchases.menu_id')
+            ->groupBy('menus.id')
             ->orderBy('total', 'desc')
             ->take(5)
-            ->pluck('purchases.menu_id');
+            ->pluck('menus.id');
 
 
         return response(['data' => MenuResource::customCollection($menu->sortByDesc('purchases'), $bestSellers->toArray())]);
