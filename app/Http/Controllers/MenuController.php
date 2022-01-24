@@ -43,7 +43,7 @@ class MenuController extends Controller
             ->groupBy('purchases.menu_id')
             ->orderBy('total', 'desc')
             ->take(5)
-            ->pluck('menus.id');
+            ->pluck('purchases.menu_id');
 
 
         return response(['data' => MenuResource::customCollection($menu->sortByDesc('purchases'), $bestSellers->toArray())]);
