@@ -65,7 +65,7 @@ class PaymentResource extends JsonResource
             "order_code" => $this->order_code,
             "payment_id" => $this->payment_id,
             "table_name" => $this->table_name,
-            'total_preparation' => Menu::whereIn('id', $this->references->first()->purchases->pluck('menu_id')->toArray())->sum('preparation_time'),
+            'total_preparation' => '' . Menu::whereIn('id', $this->references->first()->purchases->pluck('menu_id')->toArray())->sum('preparation_time'),
         ];
     }
 }
