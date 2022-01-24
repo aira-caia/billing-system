@@ -8,8 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Payment extends Model
 {
-    protected $fillable = ["order_code", "type", "split_count", "amount", "table_name", "payment_id", "receipt_number","method"];
+    protected $fillable = ["order_code", "type", "split_count", "amount", "table_name", "payment_id", "receipt_number", "method"];
     use HasFactory;
+
+
+    protected $casts = ['is_served' => 'boolean'];
 
     public function references()
     {

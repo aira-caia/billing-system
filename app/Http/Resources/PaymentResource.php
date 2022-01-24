@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Menu;
 use App\Models\Payment;
 use Carbon\Carbon;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -54,7 +55,7 @@ class PaymentResource extends JsonResource
         return [
             "id" => $this->id,
             "paid_at" => Carbon::parse($this->created_at)->isoFormat("lll"),
-            "time_passed" => Carbon::parse($this->created_at)->diffForHumans(),
+            "time_passed" => Carbon::parse($this->created_at)->diffInMinutes() . '',
             "total" => number_format($this->where("order_code", $this->order_code)->sum("amount"), 2),
             "orders" => $orders,
             "is_served" => $this->is_served,
@@ -63,7 +64,8 @@ class PaymentResource extends JsonResource
             "type" => $this->type,
             "order_code" => $this->order_code,
             "payment_id" => $this->payment_id,
-            "table_name" => $this->table_name
+            "table_name" => $this->table_name,
+            'total_preparation' => Menu::whereIn('id', $this->references->first()->purchases->pluck('menu_id')->toArray())->sum('preparation_time'),
         ];
     }
 }

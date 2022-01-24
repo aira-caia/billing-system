@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\MenuResource;
 use App\Models\Menu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Kreait\Firebase\Factory;
@@ -37,8 +38,15 @@ class MenuController extends Controller
             $menu = $menu->where('category_id', $request->get('query'))->get();
         }
 
+        $bestSellers = Menu::join('purchases', 'menus.id', '=', 'purchases.menu_id')
+            ->select('menus.*', DB::raw('SUM(purchases.count) as total'))
+            ->groupBy('purchases.menu_id')
+            ->orderBy('total', 'desc')
+            ->take(5)
+            ->pluck('menus.id');
 
-        return response(['data' => MenuResource::collection($menu)]);
+
+        return response(['data' => MenuResource::customCollection($menu->sortByDesc('purchases'), $bestSellers->toArray())]);
     }
 
     public function show(Menu $menu)
@@ -136,6 +144,13 @@ class MenuController extends Controller
         return response([
             'message' => "OK"
         ]);
+    }
+
+    public function toggleAvailability(Menu $menu)
+    {
+        $menu->update(['is_available' => !$menu->is_available]);
+
+        return response(['message' => 'Menu availability has been updated!']);
     }
 
     public function update(Request $request, Menu $menu)

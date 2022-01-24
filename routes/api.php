@@ -42,6 +42,7 @@ Route::group(['middleware' => ['auth:sanctum']], static function () {
     Route::get('report/transact', [\App\Http\Controllers\ReportController::class, 'transact']);
     Route::get('report/purchase', [\App\Http\Controllers\ReportController::class, 'purchase']);
     Route::get('report/purchase/group', [\App\Http\Controllers\ReportController::class, 'purchaseGroup']);
+    Route::post('menus/{menu}/toggle-availability', [\App\Http\Controllers\MenuController::class, 'toggleAvailability']);
 });
 
 /*
