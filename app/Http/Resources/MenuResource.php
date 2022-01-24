@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Storage;
 // Format for retrieving menus, they are sent in an array format too.
 class MenuResource extends JsonResource
 {
+
+    private static $bests = [];
     /**
      * Transform the resource into an array.
      *
@@ -29,6 +31,15 @@ class MenuResource extends JsonResource
             'previous_price' => $this->previous_price,
             'preparation_time' => $this->preparation_time,
             'quantity' => $this->quantity,
+            'is_available' => $this->is_available,
+            'purchases' => $this->purchases->sum('count'),
+            'best_seller' => in_array($this->id, self::$bests)
         ];
+    }
+
+    public static function customCollection($qry, $bestSellers)
+    {
+        self::$bests = $bestSellers;
+        return static::collection($qry);
     }
 }
